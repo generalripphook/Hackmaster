@@ -1,0 +1,2052 @@
+on('chat:message', function(mel) {
+
+    var cmdNam;
+
+    var msgtxt;
+
+
+
+    cmdNam = '!MelFumb ';
+
+    msgtxt = mel.content;
+
+    if(mel.type == 'api' && msgtxt.indexOf(cmdNam) !== -1) {
+
+
+
+            var missdif = msgtxt.slice(cmdNam.length);
+
+            var selfinj = 1;
+
+            var melfumbroll;
+
+            var penalty = 0;
+
+            var penaltydur = 0;
+
+            var pen = 0;
+
+            var pendur = 0;
+
+            var pendur1 = 0;
+
+            var count = 1;
+
+            var error = 0;
+
+            
+
+            melfumbroll = randomInteger(1000)+(Number(missdif)*10);
+
+			var FreeAtt = "No free attack" 
+
+            if (melfumbroll%2 == 1)
+			
+            var FreeAtt = "Defender gains a free attack free attack"
+
+            
+
+            do
+
+            {//log(melfumbroll);
+
+
+            if (melfumbroll < 201)
+
+            {var OE= "No special ill effect.";}
+
+            else
+
+            {if (melfumbroll < 217)
+
+            {var OE= "Sweat in your eyes, -1 attack for 10 seconds.";}
+
+            else
+
+            {if (melfumbroll < 233)
+
+            {var OE="Blood in your eyes, -3 attack for 10 seconds.";}
+
+            else
+
+            {if (melfumbroll < 248)
+
+            {var OE="Random ally within reach+5' is automatically hit by their opponent and the ally's count resets.";}
+
+            else
+
+            {if (melfumbroll < 264)
+
+            {penaltydur = randomInteger(4);
+
+            pendur = penaltydur;
+
+            while (pendur == 4)
+
+            {pendur = randomInteger(4);
+
+            penaltydur = penaltydur + pendur - 1;}
+
+            var OE= "Distracted by ally or opponent; add " + penaltydur + " seconds wait time before next attack and -4 penalty to Defense whilst so distracted.";}
+
+            else
+
+            {if (melfumbroll < 277)
+
+            {var OE="Boot/footgear breaks, -1 to attack and defense until repaired or discarded.";}
+
+            else
+
+            {if (melfumbroll < 319)
+
+            {var OE="Backpack, pouch, or other container strap breaks, -1 to attack and defense until item repaired or discarded.";}
+
+            else
+
+            {if (melfumbroll < 344)
+
+            {var OE="Belt, girdle, etc. breaks, -1 to attack and defense until item repaired or discarded.";}
+
+            else
+
+            {if (melfumbroll < 365)
+
+            {var OE="Armor loosened, -1 to attack and defense until readjusted (by redonning or by another person helping for 10 seconds).";}
+
+            else
+
+            {if (melfumbroll < 371)
+
+            {var OE="Armor strap breaks and -2 to attack and defense until repaired.";}
+
+            else
+
+            {if (melfumbroll < 399)
+
+            {var OE="Shield strap breaks and -3 to attack and defense until repaired or discarded.";}
+
+            else
+
+            {if (melfumbroll < 437)
+
+            {var OE="Damage own armor (1 point).";}
+
+            else
+
+            {if (melfumbroll < 473)
+
+            {var OE="Handle broken, -1 attack penalty.";}
+
+            else
+
+            {if (melfumbroll < 509)
+
+            {var OE="Blade/head broken, -1 to damage.";}
+
+            else
+
+            {if (melfumbroll < 518)
+
+            {var OE="Blade shattered (useless).";}
+
+            else
+
+            {if (melfumbroll < 527)
+
+            {var OE="Handle/haft sheared (useless).";}
+
+            else
+
+            {if (melfumbroll < 536)
+
+            {var OE="Sheared (useless).";}
+
+            else
+
+            {if (melfumbroll < 554)
+
+            {var OE="Handle badly broken, -2 attack penalty.";}
+
+            else
+
+            {if (melfumbroll < 572)
+
+            {var OE="Blade/head badly broken, -25% damage.";}
+
+            else
+
+            {if (melfumbroll < 581)
+
+            {var OE="Blade/head sheared/cracked, -50% to damage.";}
+
+            else
+
+            {if (melfumbroll < 617)
+
+            {var OE="Edge dulled, nicked, and/or cracked, -1 to attack and damage.";}
+
+            else
+
+            {if (melfumbroll < 631)
+
+            {penaltydur = randomInteger(4);
+
+            var OE="Overextend, +" + penaltydur + " seconds penalty to next attack, -2 to next defense roll.";}
+
+            else
+
+            {if (melfumbroll < 645)
+
+            {penalty = randomInteger(4) + 1;
+
+            penaltydur = randomInteger(6);
+
+            var OE="Hinder a random ally within 5' + weapon reach. They suffer +" + penaltydur + " seconds penalty to next attack and a -" + penalty + " to hit penalty on next attack roll or 25% chance of hitting you instead. If the ally is a spellcaster in the midst of casting a spell this counts as 'Caster struck by blow absorbed by body armor' for spell mishaps.";}
+
+            else
+
+            {if (melfumbroll < 659)
+
+            {penaltydur = randomInteger(4);
+
+            var OE= "Off balance, +" + penaltydur + " seconds to next attack.";}
+
+            else
+
+            {if (melfumbroll < 673)
+
+            {var OE="Overextend, -2 to next defense roll.";}
+
+            else
+
+            {if (melfumbroll < 689)
+
+            {penalty = randomInteger(20);
+
+            pen = penalty;
+
+            if (pen == 20)
+
+            {while (pen > 5)
+
+            {pen = randomInteger(6);
+
+            penalty = penalty + pen - 1;}}
+
+            penalty = penalty + 6;
+
+            var OE="Slip, make a Feat of Agility check vs. " + penalty + " or fall prone and suffer a -6 to all defense and attack rolls for 10 seconds.";}
+
+            else
+
+            {if (melfumbroll < 691)
+
+            {penalty = randomInteger(3);
+
+            if (penalty == 1)
+
+            {penaltydur = randomInteger(3);}
+
+            else
+
+            {if (penalty == 2)
+
+            {penaltydur = randomInteger(3) + randomInteger(3);}
+
+            else
+
+            {if (penalty == 3)
+
+            {penaltydur = randomInteger(3) + randomInteger(3) + randomInteger(3);}}}
+
+            selfinj = randomInteger(6);
+
+            if (selfinj == 6)
+
+            {penaltydur = penaltydur * 1.5;
+
+            var OE="Muscle tear in left big toe. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}
+
+            else
+
+            {var OE="Left big toe is sprained/hyperextended. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}}
+
+            else
+
+            {if (melfumbroll < 693)
+
+            {penalty = randomInteger(3);
+
+            if (penalty == 1)
+
+            {penaltydur = randomInteger(3);}
+
+            else
+
+            {if (penalty == 2)
+
+            {penaltydur = randomInteger(3) + randomInteger(3);}
+
+            else
+
+            {if (penalty == 3)
+
+            {penaltydur = randomInteger(3) + randomInteger(3) + randomInteger(3);}}}
+
+            selfinj = randomInteger(6);
+
+            if (selfinj == 6)
+
+            {penaltydur = penaltydur * 1.5;
+
+            var OE= "Muscle tear in right big toe. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}
+
+            else
+
+            {var OE="Right big toe is sprained/hyperextended. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}}
+
+            else
+
+            {if (melfumbroll < 695)
+
+            {penalty = randomInteger(3);
+
+            if (penalty == 1)
+
+            {penaltydur = randomInteger(3);}
+
+            else
+
+            {if (penalty == 2)
+
+            {penaltydur = randomInteger(3) + randomInteger(3);}
+
+            else
+
+            {if (penalty == 3)
+
+            {penaltydur = randomInteger(3) + randomInteger(3) + randomInteger(3);}}}
+
+            selfinj = randomInteger(6);
+
+            if (selfinj == 6)
+
+            {penaltydur = penaltydur * 1.5;
+
+            var OE="Muscle tear in left foot. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}
+
+            else
+
+            {var OE="Left foot is sprained/hyperextended. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}}
+
+            else
+
+            {if (melfumbroll < 697)
+
+            {penalty = randomInteger(3);
+
+            if (penalty == 1)
+
+            {penaltydur = randomInteger(3);}
+
+            else
+
+            {if (penalty == 2)
+
+            {penaltydur = randomInteger(3) + randomInteger(3);}
+
+            else
+
+            {if (penalty == 3)
+
+            {penaltydur = randomInteger(3) + randomInteger(3) + randomInteger(3);}}}
+
+            selfinj = randomInteger(6);
+
+            if (selfinj == 6)
+
+            {penaltydur = penaltydur * 1.5;
+
+            var OE="Muscle tear in right foot. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}
+
+            else
+
+            {var OE="Right foot is sprained/hyperextended. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}}
+
+            else
+
+            {if (melfumbroll < 699)
+
+            {penalty = randomInteger(3);
+
+            if (penalty == 1)
+
+            {penaltydur = randomInteger(3);}
+
+            else
+
+            {if (penalty == 2)
+
+            {penaltydur = randomInteger(3) + randomInteger(3);}
+
+            else
+
+            {if (penalty == 3)
+
+            {penaltydur = randomInteger(3) + randomInteger(3) + randomInteger(3);}}}
+
+            selfinj = randomInteger(6);
+
+            if (selfinj == 6)
+
+            {penaltydur = penaltydur * 1.5;
+
+            var OE="Muscle tear in right ankle. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}
+
+            else
+
+            {var OE="Right ankle is sprained/hyperextended. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}}
+
+            else
+
+            {if (melfumbroll < 701)
+
+            {penalty = randomInteger(3);
+
+            if (penalty == 1)
+
+            {penaltydur = randomInteger(3);}
+
+            else
+
+            {if (penalty == 2)
+
+            {penaltydur = randomInteger(3) + randomInteger(3);}
+
+            else
+
+            {if (penalty == 3)
+
+            {penaltydur = randomInteger(3) + randomInteger(3) + randomInteger(3);}}}
+
+            selfinj = randomInteger(6);
+
+            if (selfinj == 6)
+
+            {penaltydur = penaltydur * 1.5;
+
+            var OE="Muscle tear in left ankle. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}
+
+            else
+
+            {var OE="Left ankle is sprained/hyperextended. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}}
+
+            else
+
+            {if (melfumbroll < 703)
+
+            {penalty = randomInteger(3);
+
+            if (penalty == 1)
+
+            {penaltydur = randomInteger(3);}
+
+            else
+
+            {if (penalty == 2)
+
+            {penaltydur = randomInteger(3) + randomInteger(3);}
+
+            else
+
+            {if (penalty == 3)
+
+            {penaltydur = randomInteger(3) + randomInteger(3) + randomInteger(3);}}}
+
+            selfinj = randomInteger(6);
+
+            if (selfinj == 6)
+
+            {penaltydur = penaltydur * 1.5;
+
+            var OE="Muscle tear in right knee. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}
+
+            else
+
+            {var OE="Right knee is sprained/hyperextended. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}}
+
+            else
+
+            {if (melfumbroll < 705)
+
+            {penalty = randomInteger(3);
+
+            if (penalty == 1)
+
+            {penaltydur = randomInteger(3);}
+
+            else
+
+            {if (penalty == 2)
+
+            {penaltydur = randomInteger(3) + randomInteger(3);}
+
+            else
+
+            {if (penalty == 3)
+
+            {penaltydur = randomInteger(3) + randomInteger(3) + randomInteger(3);}}}
+
+            selfinj = randomInteger(6);
+
+            if (selfinj == 6)
+
+            {penaltydur = penaltydur * 1.5;
+
+            var OE="Muscle tear in left knee. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}
+
+            else
+
+            {var OE="Left knee is sprained/hyperextended. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}}
+
+            else
+
+            {if (melfumbroll < 707)
+
+            {penalty = randomInteger(3);
+
+            if (penalty == 1)
+
+            {penaltydur = randomInteger(3);}
+
+            else
+
+            {if (penalty == 2)
+
+            {penaltydur = randomInteger(3) + randomInteger(3);}
+
+            else
+
+            {if (penalty == 3)
+
+            {penaltydur = randomInteger(3) + randomInteger(3) + randomInteger(3);}}}
+
+            selfinj = randomInteger(6);
+
+            if (selfinj == 6)
+
+            {penaltydur = penaltydur * 1.5;
+
+            var OE="Muscle tear in right hip. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}
+
+            else
+
+            {var OE="Right hip is sprained/hyperextended. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}}
+
+            else
+
+            {if (melfumbroll < 709)
+
+            {penalty = randomInteger(3);
+
+            if (penalty == 1)
+
+            {penaltydur = randomInteger(3);}
+
+            else
+
+            {if (penalty == 2)
+
+            {penaltydur = randomInteger(3) + randomInteger(3);}
+
+            else
+
+            {if (penalty == 3)
+
+            {penaltydur = randomInteger(3) + randomInteger(3) + randomInteger(3);}}}
+
+            selfinj = randomInteger(6);
+
+            if (selfinj == 6)
+
+            {penaltydur = penaltydur * 1.5;
+
+            var OE="Muscle tear in left hip. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}
+
+            else
+
+            {var OE="Left hip is sprained/hyperextended. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}}
+
+            else
+
+            {if (melfumbroll < 711)
+
+            {penalty = randomInteger(3);
+
+            if (penalty == 1)
+
+            {penaltydur = randomInteger(3);}
+
+            else
+
+            {if (penalty == 2)
+
+            {penaltydur = randomInteger(3) + randomInteger(3);}
+
+            else
+
+            {if (penalty == 3)
+
+            {penaltydur = randomInteger(3) + randomInteger(3) + randomInteger(3);}}}
+
+            selfinj = randomInteger(6);
+
+            if (selfinj == 6)
+
+            {penaltydur = penaltydur * 1.5;
+
+            var OE="Muscle tear in right wrist. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}
+
+            else
+
+            {var OE="Right wrist is sprained/hyperextended. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}}
+
+            else
+
+            {if (melfumbroll < 713)
+
+            {penalty = randomInteger(3);
+
+            if (penalty == 1)
+
+            {penaltydur = randomInteger(3);}
+
+            else
+
+            {if (penalty == 2)
+
+            {penaltydur = randomInteger(3) + randomInteger(3);}
+
+            else
+
+            {if (penalty == 3)
+
+            {penaltydur = randomInteger(3) + randomInteger(3) + randomInteger(3);}}}
+
+            selfinj = randomInteger(6);
+
+            if (selfinj == 6)
+
+            {penaltydur = penaltydur * 1.5;
+
+            var OE="Muscle tear in left wrist. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}
+
+            else
+
+            {var OE="Left wrist is sprained/hyperextended. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}}
+
+            else
+
+            {if (melfumbroll < 715)
+
+            {penalty = randomInteger(3);
+
+            if (penalty == 1)
+
+            {penaltydur = randomInteger(3);}
+
+            else
+
+            {if (penalty == 2)
+
+            {penaltydur = randomInteger(3) + randomInteger(3);}
+
+            else
+
+            {if (penalty == 3)
+
+            {penaltydur = randomInteger(3) + randomInteger(3) + randomInteger(3);}}}
+
+            selfinj = randomInteger(6);
+
+            if (selfinj == 6)
+
+            {penaltydur = penaltydur * 1.5;
+
+            var OE="Muscle tear in right shoulder. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}
+
+            else
+
+            {var OE="Right shoulder is sprained/hyperextended. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}}
+
+            else
+
+            {if (melfumbroll < 717)
+
+            {penalty = randomInteger(3);
+
+            if (penalty == 1)
+
+            {penaltydur = randomInteger(3);}
+
+            else
+
+            {if (penalty == 2)
+
+            {penaltydur = randomInteger(3) + randomInteger(3);}
+
+            else
+
+            {if (penalty == 3)
+
+            {penaltydur = randomInteger(3) + randomInteger(3) + randomInteger(3);}}}
+
+            selfinj = randomInteger(6);
+
+            if (selfinj == 6)
+
+            {penaltydur = penaltydur * 1.5;
+
+            var OE="Muscle tear in left shoulder. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}
+
+            else
+
+            {var OE="Left shoulder is sprained/hyperextended. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}}
+
+            else
+
+            {if (melfumbroll < 719)
+
+            {penalty = randomInteger(3);
+
+            if (penalty == 1)
+
+            {penaltydur = randomInteger(3);}
+
+            else
+
+            {if (penalty == 2)
+
+            {penaltydur = randomInteger(3) + randomInteger(3);}
+
+            else
+
+            {if (penalty == 3)
+
+            {penaltydur = randomInteger(3) + randomInteger(3) + randomInteger(3);}}}
+
+            selfinj = randomInteger(6);
+
+            if (selfinj == 6)
+
+            {penaltydur = penaltydur * 1.5;
+
+            var OE="Muscle tear in right elbow. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}
+
+            else
+
+            {var OE="Right elbow is sprained/hyperextended. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}}
+
+            else
+
+            {if (melfumbroll < 721)
+
+            {penalty = randomInteger(3);
+
+            if (penalty == 1)
+
+            {penaltydur = randomInteger(3);}
+
+            else
+
+            {if (penalty == 2)
+
+            {penaltydur = randomInteger(3) + randomInteger(3);}
+
+            else
+
+            {if (penalty == 3)
+
+            {penaltydur = randomInteger(3) + randomInteger(3) + randomInteger(3);}}}
+
+            selfinj = randomInteger(6);
+
+            if (selfinj == 6)
+
+            {penaltydur = penaltydur * 1.5;
+
+            var OE="Muscle tear in left elbow. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}
+
+            else
+
+            {var OE="Left elbow is sprained/hyperextended. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}}
+
+            else
+
+            {if (melfumbroll < 723)
+
+            {penalty = randomInteger(3);
+
+            if (penalty == 1)
+
+            {penaltydur = randomInteger(3);}
+
+            else
+
+            {if (penalty == 2)
+
+            {penaltydur = randomInteger(3) + randomInteger(3);}
+
+            else
+
+            {if (penalty == 3)
+
+            {penaltydur = randomInteger(3) + randomInteger(3) + randomInteger(3);}}}
+
+            selfinj = randomInteger(6);
+
+            if (selfinj == 6)
+
+            {penaltydur = penaltydur * 1.5;
+
+            var OE="Muscle tear in neck. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}
+
+            else
+
+            {var OE="Neck is sprained/hyperextended. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}}
+
+            else
+
+            {if (melfumbroll < 725)
+
+            {penalty = randomInteger(3);
+
+            if (penalty == 1)
+
+            {penaltydur = randomInteger(3);}
+
+            else
+
+            {if (penalty == 2)
+
+            {penaltydur = randomInteger(3) + randomInteger(3);}
+
+            else
+
+            {if (penalty == 3)
+
+            {penaltydur = randomInteger(3) + randomInteger(3) + randomInteger(3);}}}
+
+            selfinj = randomInteger(6);
+
+            if (selfinj == 6)
+
+            {penaltydur = penaltydur * 1.5;
+
+            var OE="Muscle tear in back. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}
+
+            else
+
+            {var OE="Back is sprained/hyperextended. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}}
+
+            else
+
+            {if (melfumbroll < 727)
+
+            {penalty = randomInteger(3);
+
+            if (penalty == 1)
+
+            {penaltydur = randomInteger(3);}
+
+            else
+
+            {if (penalty == 2)
+
+            {penaltydur = randomInteger(3) + randomInteger(3);}
+
+            else
+
+            {if (penalty == 3)
+
+            {penaltydur = randomInteger(3) + randomInteger(3) + randomInteger(3);}}}
+
+            selfinj = randomInteger(6);
+
+            if (selfinj == 6)
+
+            {penaltydur = penaltydur * 1.5;
+
+            var OE="Muscle tear in left achilles. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}
+
+            else
+
+            {var OE="Left achilles is sprained/hyperextended. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}}
+
+            else
+
+            {if (melfumbroll < 729)
+
+            {penalty = randomInteger(3);
+
+            if (penalty == 1)
+
+            {penaltydur = randomInteger(3);}
+
+            else
+
+            {if (penalty == 2)
+
+            {penaltydur = randomInteger(3) + randomInteger(3);}
+
+            else
+
+            {if (penalty == 3)
+
+            {penaltydur = randomInteger(3) + randomInteger(3) + randomInteger(3);}}}
+
+            selfinj = randomInteger(6);
+
+            if (selfinj == 6)
+
+            {penaltydur = penaltydur * 1.5;
+
+            var OE="Muscle tear in right achilles. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}
+
+            else
+
+            {var OE="Right achilles is sprained/hyperextended. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}}
+
+            else
+
+            {if (melfumbroll < 731)
+
+            {penalty = randomInteger(4);
+
+            pen = penalty;
+
+            while (pen == 4)
+
+            {pen = randomInteger(4);
+
+            penalty = penalty + pen - 1;}
+
+            pen = penalty;
+
+            penaltydur = 0;
+
+            selfinj = randomInteger(6);
+
+            if (selfinj == 6)
+
+            {while (pen > 0)
+
+            {pendur = randomInteger(3);
+
+            pendur1 = pendur;
+
+            while (pendur == 3)
+
+            {pendur = randomInteger(3);
+
+            pendur1 = pendur1 + pendur - 1;}
+
+            penaltydur = penaltydur + pendur1;
+
+            pen = pen - 0.5;}
+
+            var OE="Torn ligament in left calf. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.";}
+
+            else
+
+            {while (pen > 0)
+
+            {pendur = randomInteger(3);
+
+            penaltydur = penaltydur + pendur;
+
+            pen = pen - 1;}
+
+            var OE="Muscle in left calf is strained/pulled. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}}
+
+            else
+
+            {if (melfumbroll < 733)
+
+            {penalty = randomInteger(4);
+
+            pen = penalty;
+
+            while (pen == 4)
+
+            {pen = randomInteger(4);
+
+            penalty = penalty + pen - 1;}
+
+            pen = penalty;
+
+            penaltydur = 0;
+
+            selfinj = randomInteger(6);
+
+            if (selfinj == 6)
+
+            {while (pen > 0)
+
+            {pendur = randomInteger(3);
+
+            pendur1 = pendur;
+
+            while (pendur == 3)
+
+            {pendur = randomInteger(3);
+
+            pendur1 = pendur1 + pendur - 1;}
+
+            penaltydur = penaltydur + pendur1;
+
+            pen = pen - 0.5;}
+
+            var OE="Torn ligament in right calf. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.";}
+
+            else
+
+            {while (pen > 0)
+
+            {pendur = randomInteger(3);
+
+            penaltydur = penaltydur + pendur;
+
+            pen = pen - 1;}
+
+            var OE="Muscle in right calf is strained/pulled. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}}
+
+            else
+
+            {if (melfumbroll < 736)
+
+            {penalty = randomInteger(4);
+
+            pen = penalty;
+
+            while (pen == 4)
+
+            {pen = randomInteger(4);
+
+            penalty = penalty + pen - 1;}
+
+            pen = penalty;
+
+            penaltydur = 0;
+
+            selfinj = randomInteger(6);
+
+            if (selfinj == 6)
+
+            {while (pen > 0)
+
+            {pendur = randomInteger(3);
+
+            pendur1 = pendur;
+
+            while (pendur == 3)
+
+            {pendur = randomInteger(3);
+
+            pendur1 = pendur1 + pendur - 1;}
+
+            penaltydur = penaltydur + pendur1;
+
+            pen = pen - 0.5;}
+
+            var OE="Torn ligament in left hamstring. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.";}
+
+            else
+
+            {while (pen > 0)
+
+            {pendur = randomInteger(3);
+
+            penaltydur = penaltydur + pendur;
+
+            pen = pen - 1;}
+
+            var OE="Muscle in left hamstring is strained/pulled. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}}
+
+            else
+
+            {if (melfumbroll < 739)
+
+            {penalty = randomInteger(4);
+
+            pen = penalty;
+
+            while (pen == 4)
+
+            {pen = randomInteger(4);
+
+            penalty = penalty + pen - 1;}
+
+            pen = penalty;
+
+            penaltydur = 0;
+
+            selfinj = randomInteger(6);
+
+            if (selfinj == 6)
+
+            {while (pen > 0)
+
+            {pendur = randomInteger(3);
+
+            pendur1 = pendur;
+
+            while (pendur == 3)
+
+            {pendur = randomInteger(3);
+
+            pendur1 = pendur1 + pendur - 1;}
+
+            penaltydur = penaltydur + pendur1;
+
+            pen = pen - 0.5;}
+
+            var OE="Torn ligament in right hamstring. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.";}
+
+            else
+
+            {while (pen > 0)
+
+            {pendur = randomInteger(3);
+
+            penaltydur = penaltydur + pendur;
+
+            pen = pen - 1;}
+
+            var OE="Muscle in right hamstring is strained/pulled. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}}
+
+            else
+
+            {if (melfumbroll < 741)
+
+            {penalty = randomInteger(4);
+
+            pen = penalty;
+
+            while (pen == 4)
+
+            {pen = randomInteger(4);
+
+            penalty = penalty + pen - 1;}
+
+            pen = penalty;
+
+            penaltydur = 0;
+
+            selfinj = randomInteger(6);
+
+            if (selfinj == 6)
+
+            {while (pen > 0)
+
+            {pendur = randomInteger(3);
+
+            pendur1 = pendur;
+
+            while (pendur == 3)
+
+            {pendur = randomInteger(3);
+
+            pendur1 = pendur1 + pendur - 1;}
+
+            penaltydur = penaltydur + pendur1;
+
+            pen = pen - 0.5;}
+
+            var OE="Torn ligament in left quadriceps. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.";}
+
+            else
+
+            {while (pen > 0)
+
+            {pendur = randomInteger(3);
+
+            penaltydur = penaltydur + pendur;
+
+            pen = pen - 1;}
+
+            var OE="Muscle in left quadriceps is strained/pulled. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}}
+
+            else
+
+            {if (melfumbroll < 743)
+
+            {penalty = randomInteger(4);
+
+            pen = penalty;
+
+            while (pen == 4)
+
+            {pen = randomInteger(4);
+
+            penalty = penalty + pen - 1;}
+
+            pen = penalty;
+
+            penaltydur = 0;
+
+            selfinj = randomInteger(6);
+
+            if (selfinj == 6)
+
+            {while (pen > 0)
+
+            {pendur = randomInteger(3);
+
+            pendur1 = pendur;
+
+            while (pendur == 3)
+
+            {pendur = randomInteger(3);
+
+            pendur1 = pendur1 + pendur - 1;}
+
+            penaltydur = penaltydur + pendur1;
+
+            pen = pen - 0.5;}
+
+            var OE="Torn ligament in right quadriceps. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.";}
+
+            else
+
+            {while (pen > 0)
+
+            {pendur = randomInteger(3);
+
+            penaltydur = penaltydur + pendur;
+
+            pen = pen - 1;}
+
+            var OE="Muscle in right quadriceps is strained/pulled. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}}
+
+            else
+
+            {if (melfumbroll < 745)
+
+            {penalty = randomInteger(4);
+
+            pen = penalty;
+
+            while (pen == 4)
+
+            {pen = randomInteger(4);
+
+            penalty = penalty + pen - 1;}
+
+            pen = penalty;
+
+            penaltydur = 0;
+
+            selfinj = randomInteger(6);
+
+            if (selfinj == 6)
+
+            {while (pen > 0)
+
+            {pendur = randomInteger(3);
+
+            pendur1 = pendur;
+
+            while (pendur == 3)
+
+            {pendur = randomInteger(3);
+
+            pendur1 = pendur1 + pendur - 1;}
+
+            penaltydur = penaltydur + pendur1;
+
+            pen = pen - 0.5;}
+
+            var OE="Torn ligament in gluteus maximus. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.";}
+
+            else
+
+            {while (pen > 0)
+
+            {pendur = randomInteger(3);
+
+            penaltydur = penaltydur + pendur;
+
+            pen = pen - 1;}
+
+            var OE="Muscle in gluteus maximus is strained/pulled. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}}
+
+            else
+
+            {if (melfumbroll < 747)
+
+            {penalty = randomInteger(4);
+
+            pen = penalty;
+
+            while (pen == 4)
+
+            {pen = randomInteger(4);
+
+            penalty = penalty + pen - 1;}
+
+            pen = penalty;
+
+            penaltydur = 0;
+
+            selfinj = randomInteger(6);
+
+            if (selfinj == 6)
+
+            {while (pen > 0)
+
+            {pendur = randomInteger(3);
+
+            pendur1 = pendur;
+
+            while (pendur == 3)
+
+            {pendur = randomInteger(3);
+
+            pendur1 = pendur1 + pendur - 1;}
+
+            penaltydur = penaltydur + pendur1;
+
+            pen = pen - 0.5;}
+
+            var OE="Torn ligament in forearm. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.";}
+
+            else
+
+            {while (pen > 0)
+
+            {pendur = randomInteger(3);
+
+            penaltydur = penaltydur + pendur;
+
+            pen = pen - 1;}
+
+            var OE="Muscle in forearm is strained/pulled. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}}
+
+            else
+
+            {if (melfumbroll < 749)
+
+            {penalty = randomInteger(4);
+
+            pen = penalty;
+
+            while (pen == 4)
+
+            {pen = randomInteger(4);
+
+            penalty = penalty + pen - 1;}
+
+            pen = penalty;
+
+            penaltydur = 0;
+
+            selfinj = randomInteger(6);
+
+            if (selfinj == 6)
+
+            {while (pen > 0)
+
+            {pendur = randomInteger(3);
+
+            pendur1 = pendur;
+
+            while (pendur == 3)
+
+            {pendur = randomInteger(3);
+
+            pendur1 = pendur1 + pendur - 1;}
+
+            penaltydur = penaltydur + pendur1;
+
+            pen = pen - 0.5;}
+
+            var OE="Torn ligament in bicep. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.";}
+
+            else
+
+            {while (pen > 0)
+
+            {pendur = randomInteger(3);
+
+            penaltydur = penaltydur + pendur;
+
+            pen = pen - 1;}
+
+            var OE="Muscle in bicep is strained/pulled. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}}
+
+            else
+
+            {if (melfumbroll < 752)
+
+            {penalty = randomInteger(4);
+
+            pen = penalty;
+
+            while (pen == 4)
+
+            {pen = randomInteger(4);
+
+            penalty = penalty + pen - 1;}
+
+            pen = penalty;
+
+            penaltydur = 0;
+
+            selfinj = randomInteger(6);
+
+            if (selfinj == 6)
+
+            {while (pen > 0)
+
+            {pendur = randomInteger(3);
+
+            pendur1 = pendur;
+
+            while (pendur == 3)
+
+            {pendur = randomInteger(3);
+
+            pendur1 = pendur1 + pendur - 1;}
+
+            penaltydur = penaltydur + pendur1;
+
+            pen = pen - 0.5;}
+
+            var OE="Torn ligament in tricep. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.";}
+
+            else
+
+            {while (pen > 0)
+
+            {pendur = randomInteger(3);
+
+            penaltydur = penaltydur + pendur;
+
+            pen = pen - 1;}
+
+            var Oe="Muscle in tricep is strained/pulled. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}}
+
+            else
+
+            {if (melfumbroll < 760)
+
+            {penalty = randomInteger(4);
+
+            pen = penalty;
+
+            while (pen == 4)
+
+            {pen = randomInteger(4);
+
+            penalty = penalty + pen - 1;}
+
+            pen = penalty;
+
+            penaltydur = 0;
+
+            selfinj = randomInteger(6);
+
+            if (selfinj == 6)
+
+            {while (pen > 0)
+
+            {pendur = randomInteger(3);
+
+            pendur1 = pendur;
+
+            while (pendur == 3)
+
+            {pendur = randomInteger(3);
+
+            pendur1 = pendur1 + pendur - 1;}
+
+            penaltydur = penaltydur + pendur1;
+
+            pen = pen - 0.5;}
+
+            var OE="Torn ligament in lower back. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.";}
+
+            else
+
+            {while (pen > 0)
+
+            {pendur = randomInteger(3);
+
+            penaltydur = penaltydur + pendur;
+
+            pen = pen - 1;}
+
+            var OE="Muscle in lower back is strained/pulled. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}}
+
+            else
+
+            {if (melfumbroll < 762)
+
+            {penalty = randomInteger(4);
+
+            pen = penalty;
+
+            while (pen == 4)
+
+            {pen = randomInteger(4);
+
+            penalty = penalty + pen - 1;}
+
+            pen = penalty;
+
+            penaltydur = 0;
+
+            selfinj = randomInteger(6);
+
+            if (selfinj == 6)
+
+            {while (pen > 0)
+
+            {pendur = randomInteger(3);
+
+            pendur1 = pendur;
+
+            while (pendur == 3)
+
+            {pendur = randomInteger(3);
+
+            pendur1 = pendur1 + pendur - 1;}
+
+            penaltydur = penaltydur + pendur1;
+
+            pen = pen - 0.5;}
+
+            var OE="Torn ligament in side. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.";}
+
+            else
+
+            {while (pen > 0)
+
+            {pendur = randomInteger(3);
+
+            penaltydur = penaltydur + pendur;
+
+            pen = pen - 1;}
+
+            var OE="Muscle in side is strained/pulled. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}}
+
+            else
+
+            {if (melfumbroll < 767)
+
+            {penalty = randomInteger(4);
+
+            pen = penalty;
+
+            while (pen == 4)
+
+            {pen = randomInteger(4);
+
+            penalty = penalty + pen - 1;}
+
+            pen = penalty;
+
+            penaltydur = 0;
+
+            selfinj = randomInteger(6);
+
+            if (selfinj == 6)
+
+            {while (pen > 0)
+
+            {pendur = randomInteger(3);
+
+            pendur1 = pendur;
+
+            while (pendur == 3)
+
+            {pendur = randomInteger(3);
+
+            pendur1 = pendur1 + pendur - 1;}
+
+            penaltydur = penaltydur + pendur1;
+
+            pen = pen - 0.5;}
+
+            var OE="Torn ligament in upper back. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.";}
+
+            else
+
+            {while (pen > 0)
+
+            {pendur = randomInteger(3);
+
+            penaltydur = penaltydur + pendur;
+
+            pen = pen - 1;}
+
+            var OE="Muscle in upper back is strained/pulled. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}}
+
+            else
+
+            {if (melfumbroll < 769)
+
+            {penalty = randomInteger(4);
+
+            pen = penalty;
+
+            while (pen == 4)
+
+            {pen = randomInteger(4);
+
+            penalty = penalty + pen - 1;}
+
+            pen = penalty;
+
+            penaltydur = 0;
+
+            selfinj = randomInteger(6);
+
+            if (selfinj == 6)
+
+            {while (pen > 0)
+
+            {pendur = randomInteger(3);
+
+            pendur1 = pendur;
+
+            while (pendur == 3)
+
+            {pendur = randomInteger(3);
+
+            pendur1 = pendur1 + pendur - 1;}
+
+            penaltydur = penaltydur + pendur1;
+
+            pen = pen - 0.5;}
+
+            var OE="Torn ligament in left shoulder. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.";}
+
+            else
+
+            {while (pen > 0)
+
+            {pendur = randomInteger(3);
+
+            penaltydur = penaltydur + pendur;
+
+            pen = pen - 1;}
+
+            var OE="Muscle in left shoulder is strained/pulled. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}}
+
+            else
+
+            {if (melfumbroll < 771)
+
+            {penalty = randomInteger(4);
+
+            pen = penalty;
+
+            while (pen == 4)
+
+            {pen = randomInteger(4);
+
+            penalty = penalty + pen - 1;}
+
+            pen = penalty;
+
+            penaltydur = 0;
+
+            selfinj = randomInteger(6);
+
+            if (selfinj == 6)
+
+            {while (pen > 0)
+
+            {pendur = randomInteger(3);
+
+            pendur1 = pendur;
+
+            while (pendur == 3)
+
+            {pendur = randomInteger(3);
+
+            pendur1 = pendur1 + pendur - 1;}
+
+            penaltydur = penaltydur + pendur1;
+
+            pen = pen - 0.5;}
+
+            var OE="Torn ligament in right shoulder. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.";}
+
+            else
+
+            {while (pen > 0)
+
+            {pendur = randomInteger(3);
+
+            penaltydur = penaltydur + pendur;
+
+            pen = pen - 1;}
+
+            var OE="Muscle in right shoulder is strained/pulled. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}}
+
+            else
+
+            {if (melfumbroll < 772)
+
+            {penalty = randomInteger(4);
+
+            pen = penalty;
+
+            while (pen == 4)
+
+            {pen = randomInteger(4);
+
+            penalty = penalty + pen - 1;}
+
+            pen = penalty;
+
+            penaltydur = 0;
+
+            selfinj = randomInteger(6);
+
+            if (selfinj == 6)
+
+            {while (pen > 0)
+
+            {pendur = randomInteger(3);
+
+            pendur1 = pendur;
+
+            while (pendur == 3)
+
+            {pendur = randomInteger(3);
+
+            pendur1 = pendur1 + pendur - 1;}
+
+            penaltydur = penaltydur + pendur1;
+
+            pen = pen - 0.5;}
+
+            var OE="Torn ligament in neck. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.";}
+
+            else
+
+            {while (pen > 0)
+
+            {pendur = randomInteger(3);
+
+            penaltydur = penaltydur + pendur;
+
+            pen = pen - 1;}
+
+            var OE="Muscle in neck is strained/pulled. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}}
+
+            else
+
+            {if (melfumbroll < 774)
+
+            {penalty = randomInteger(4);
+
+            pen = penalty;
+
+            while (pen == 4)
+
+            {pen = randomInteger(4);
+
+            penalty = penalty + pen - 1;}
+
+            pen = penalty;
+
+            penaltydur = 0;
+
+            selfinj = randomInteger(6);
+
+            if (selfinj == 6)
+
+            {while (pen > 0)
+
+            {pendur = randomInteger(3);
+
+            pendur1 = pendur;
+
+            while (pendur == 3)
+
+            {pendur = randomInteger(3);
+
+            pendur1 = pendur1 + pendur - 1;}
+
+            penaltydur = penaltydur + pendur1;
+
+            pen = pen - 0.5;}
+
+            var OE="Torn ligament in hip. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.";}
+
+            else
+
+            {while (pen > 0)
+
+            {pendur = randomInteger(3);
+
+            penaltydur = penaltydur + pendur;
+
+            pen = pen - 1;}
+
+            var OE="Muscle in hip is strained/pulled. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}}
+
+            else
+
+            {if (melfumbroll < 775)
+
+            {penalty = randomInteger(4);
+
+            pen = penalty;
+
+            while (pen == 4)
+
+            {pen = randomInteger(4);
+
+            penalty = penalty + pen - 1;}
+
+            pen = penalty;
+
+            penaltydur = 0;
+
+            selfinj = randomInteger(6);
+
+            if (selfinj == 6)
+
+            {while (pen > 0)
+
+            {pendur = randomInteger(3);
+
+            pendur1 = pendur;
+
+            while (pendur == 3)
+
+            {pendur = randomInteger(3);
+
+            pendur1 = pendur1 + pendur - 1;}
+
+            penaltydur = penaltydur + pendur1;
+
+            pen = pen - 0.5;}
+
+            var OE="Torn ligament in abs. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.";}
+
+            else
+
+            {while (pen > 0)
+
+            {pendur = randomInteger(3);
+
+            penaltydur = penaltydur + pendur;
+
+            pen = pen - 1;}
+
+            var OE="Muscle in abs is strained/pulled. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}}
+
+            else
+
+            {if (melfumbroll < 865)
+
+            {penalty = randomInteger(20);
+
+            pen = penalty;
+
+            if (pen == 20)
+
+            {while (pen > 5)
+
+            {pen = randomInteger(6);
+
+            penalty = penalty + pen - 1;}}
+
+            var OE="Automatically inflict damage to a random ally within 5' + weapon reach. Roll damage dice and add strength bonus/penalty, but do not add bonuses from talents or specialization. Attempt a Feat of Agility check vs. " + penalty + " to deliver only half damage.";}
+
+            else
+
+            {if (melfumbroll < 942)
+
+            {var OE="Drop weapon at feet.";}
+
+            else
+
+            {if (melfumbroll < 965)
+
+            {var OE="Drop weapon 2 feet away.";}
+
+            else
+
+            {if (melfumbroll < 983)
+
+            {var OE="Drop weapon 3 feet away.";}
+
+            else
+
+            {if (melfumbroll < 996)
+
+            {var OE="Drop weapon 4 feet away.";}
+
+            else
+
+            {if (melfumbroll < 1005)
+
+            {var OE="Toss weapon 5 feet away.";}
+
+            else
+
+            {if (melfumbroll < 1011)
+
+            {var OE="Toss weapon 6 feet away.";}
+
+            else
+
+            {if (melfumbroll < 1016)
+
+            {var OE="Toss weapon 7 feet away.";}
+
+            else
+
+            {if (melfumbroll < 1021)
+
+            {var OE="Toss weapon 8 feet away.";}
+
+            else
+
+            {if (melfumbroll < 1025)
+
+            {var OE="Toss weapon 9 feet away.";}
+
+            else
+
+            {if (melfumbroll < 1029)
+
+            {var OE="Throw weapon 10 feet away.";}
+
+            else
+
+            {if (melfumbroll < 1032)
+
+            {var OE="Throw weapon 11 feet away.";}
+
+            else
+
+            {if (melfumbroll < 1035)
+
+            {var OE="Throw weapon 12 feet away.";}
+
+            else
+
+            {if (melfumbroll < 1038)
+
+            {var OE="Throw weapon 13 feet away.";}
+
+            else
+
+            {if (melfumbroll < 1040)
+
+            {var OE="Throw weapon 14 feet away.";}
+
+            else
+
+            {if (melfumbroll < 1042)
+
+            {var OE="Hurl weapon 15 feet away.";}
+
+            else
+
+            {if (melfumbroll < 1044)
+
+            {var OE="Hurl weapon 16 feet away.";}
+
+            else
+
+            {if (melfumbroll < 1045)
+
+            {penalty = randomInteger(4);
+
+            pen = penalty;
+
+            while (pen == 4)
+
+            {pen = randomInteger(4);
+
+            penalty = penalty + pen - 1;}
+
+            penalty = penalty + 16;
+
+            var OE="Hurl weapon " + penalty + " feet away.";}
+
+            else
+
+            {if (melfumbroll < 1101)
+
+            {penalty = randomInteger(20);
+
+            pen = penalty;
+
+            if (pen == 20)
+
+            {while (pen > 5)
+
+            {pen = randomInteger(6);
+
+            penalty = penalty + pen - 1;}}
+
+            var OE="Clumsily incur self-inflicted wound. Roll damage dice and add strength bonus/penalty, but do not add bonuses from talents or specialization. Attempt a Feat of Agility check vs. " + penalty + " to sustain only half damage.";}
+
+            else
+
+            {if (melfumbroll < 1201)
+			
+            {count = count + 2;
+
+            var OE="Double results! If identical results are obtained, then add the durations together.";
+
+            //log("At roll 1 Count " + count);
+
+            }
+
+            else
+
+            {count = count + 3;
+
+            var OE= "Triple results! If identical results are obtained, then add the durations together.";
+
+            //log("At roll 2 Count " + count);
+
+            }
+            
+            }}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
+            sendChat('', "&{template:hm_std}{{name= Fumble}}{{Free Attack? =" + FreeAtt +"}}{{Fumble Result= "  + melfumbroll + "{{ Other Effect=" +OE+ "}}");
+        count = count - 1;
+
+        error = error + 1;
+
+        if (error > 19)
+
+        {break;}
+
+        melfumbroll = randomInteger(1000)+(Number(missdif)*10);
+
+        //log("Count" + count);
+
+        } while (count > 0)
+
+        if (error > 19)
+
+        {sendChat("Fumble", "You got too many additional results and the script might crash! You have " + count + " additional results left to roll. You can try using the script again or roll the results individually on your own.");
+
+        sendChat("Fumble", "Or you could just accept your inevitable death. That's on you.");}
+
+        return;};
+
+});
