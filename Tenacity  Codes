@@ -1,35 +1,38 @@
+
 on("change:graphic:bar3_value", function(obj, prev) {
     var hp_this = obj.get("bar3_value");
     var hp_max  = obj.get("bar3_max");
     var hp_prev = prev.bar3_value;
-    
+    var cid = obj.get("represents");
     var wound   = hp_prev - hp_this;
  
-    // Assuming 40% here, as per HoB, p11 
     var tenacity= getAttrByName(cid, "Tenacity");
-    If (tenacity= 2){
-    	var tlimit = Math.ceil(hp_max * 0.5);}
-    	else if (tenacity =1){
+    
+    if (tenacity == 2){
+    	var tlimit = Math.ceil(hp_max * 0.5);}	
+        else if (tenacity ==1){
 			var tlimit = Math.ceil(hp_max * 0.4);}
-    	else if (tenacity=0){
+    	else if (tenacity==0){
     		var tlimit = Math.ceil(hp_max * 0.25);}
-    	else if (tenacity=-4){
+    	else if (tenacity==-4){
     		var tlimit = Math.ceil(hp_max * 0.20);}
     	else {
     		var tlimit = Math.ceil(hp_max * 0.);}
-        
+    
+    
     if (wound > tlimit) {
-        var cid = obj.get("represents");
         
-        var tenacity_roll = randomInteger(20)+tenacity;
+        var tenacity_roll = randomInteger(20)+ Number(tenacity);
 
         var card = "&{template:default} "         +
                    "{{name=Morale check "         +
                    obj.get('name')                +
                    "}}{{wound="    + wound        +
-                   "}}{{tlimit="    + limit        +
-                   "}}{{Tenacity Roll=" + top_roll     +
+                   "}}{{Tenacity Wound Threshold="    + tlimit        +
+                   "}}{{Tenacity Roll=" + tenacity_roll     +
                    "}}";
         sendChat("AutoDM", "/w gm " + card); 
     }
 });
+
+
