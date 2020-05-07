@@ -609,6 +609,7 @@ on("change:repeating_weapon:defence_dice_switch", function() {
 			<div class="sheet-col-1-16"><input type="number" name="attr_weapon_reach" min=0 step=0.25></div>
 
         	<div class="sheet-col-1-16"><input type="number" name="attr_weapon_attack_mod_total" value="@{weapon_misc_attack}+@{weapon_style_attack}+@{level_attack_bonus}+@{intelligence_attack_mod}+@{dexterity_attack_mod}+@{weapon_magic_bonus}+@{weapon_spec_attack}+@{weapon_talent_attack}" disabled="disabled"/></div>
+            <input type="hidden" name="attr_weapon_jab_speed_mod_total" value="@{weapon_misc_speed}+@{weapon_style_speed}+@{base_weapon_jab_speed}+@{level_speed_bonus}+@{armor_speed_modifier}+@{weapon_spec_speed}+@{weapon_talent_speed}+@{encumbrance_speed_mod}" disabled="disabled"/>
 
             <div class="sheet-col-1-16"><input type="number" name="attr_weapon_speed_mod_total" value="@{weapon_misc_speed}+@{weapon_style_speed}+@{base_weapon_speed}+@{level_speed_bonus}+@{armor_speed_modifier}+@{weapon_spec_speed}+@{weapon_talent_speed}+@{encumbrance_speed_mod}" disabled="disabled"/></div>
 
@@ -725,7 +726,10 @@ on("change:repeating_weapon:defence_dice_switch", function() {
 
             </div>
 
-            <div class="sheet-col-3-16"></div>
+            
+            <div class="sheet-col-1-8">Jab Damage</div>
+            <div class="sheet-col-1-16" title="Only enter the jab damage roll here without any bonuses from stats or other sources"><input type="text" name="attr_weapon_jab_damage"/></div>
+            
 
         </div>
 
@@ -824,9 +828,12 @@ on("change:repeating_weapon:defence_dice_switch", function() {
 				</select>
 
             </div>
+            <div class="sheet-col-1-8">Jab Speed</div>
+            <div class="sheet-col-1-16" title="Only enter the jab speed"><input type="text" name="attr_weapon_jab_speed"/></div>          
+            
             <div class="sheet-col-1-16"></div>
 
-            <div class="sheet-col-3-16"></div>
+            
 
             <div class="sheet-col-1-8 sheet-vert-bottom">Str Bonus</div>
             
@@ -854,8 +861,11 @@ on("change:repeating_weapon:defence_dice_switch", function() {
             <div class="sheet-col-1-16 sheet-vert-bottom"><input type="number" name="attr_weapon_style_defense" value="0"/></div>
 
             <div class="sheet-col-1-16 sheet-vert-bottom"><input type="number" name="attr_weapon_style_damage" value="0"/></div>
-
-            <div class="sheet-col-3-16"></div>
+            
+            <div class="sheet-col-1-8">Jab Roll</div>
+            <div class="sheet-col-1-16"><button type='roll' name='roll_weapon_damage' value='&{template:hm_std} {{name=@{character_name} jabs you!}} {{weapon=@{weapon}}} {{speed=@{weapon_jab_speed_mod_total}}} {{reach=@{weapon_reach}}} {{damage=[[@{weapon_jab_damage}+@{weapon_damage_mod_total}]]}}'>DMG</button></div>
+              
+            
             
 
         
@@ -1317,7 +1327,7 @@ on("change:repeating_weapon:defence_dice_switch", function() {
                     <div class="sheet-col-1-16"><input type="text" name="attr_spell_points"/></div>
 
                     <div class="sheet-col-1-16"><input type="checkbox" name="attr_spell_memorized"/></div>
-
+                
                 </fieldset>
 
             </div>
