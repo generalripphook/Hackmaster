@@ -1,3 +1,23 @@
+//This script is for use in quickly calculating a MELEE fumble result in the Hackmaster RPG system.
+
+//This script is best triggered by a macro setup like the one on the following line
+
+//!MelFumb ?{Enter the number you missed the target by}
+
+//The macro only asks for one value, making it super easy. If you wanted you could also activate the script by entering, "!MelFumb #" into the chat.
+
+//The script rolls a d1000 and adds the value entered with the macro * 10 to determine the fumble result, just as if you'd rolled a real die.
+
+//There's a few variables used to keep track of penalties and penalty durations for sprains, pulls, muscle tears, etc. They are also used for penetrating dice.
+
+//If all goes well, the script will even return multiple results for the rare terrible fumble result of above 1100!
+
+//In some cases the script will get too many repeating results above 1100, resulting in an near infinite loop. To control for this, the script will break out of the loop after 20 iterations.
+
+//If the script needs to break out because of too many iterations, your character has likely died due to their glaring incompetence. Please turn your character sheet over to the DM for processing.
+
+//Thanks to Warklaw, Scott C, and The Aaron for their help in designing this script.
+
 on('chat:message', function(mel) {
 
     var cmdNam;
@@ -34,15 +54,17 @@ on('chat:message', function(mel) {
 
             var error = 0;
 
+            var OE="No free atttack";
+            
             
 
             melfumbroll = randomInteger(1000)+(Number(missdif)*10);
 
-			var FreeAtt = "No free attack" 
+
 
             if (melfumbroll%2 == 1)
-			
-            var FreeAtt = "Defender gains a free attack free attack"
+
+            {var OE="Defender gains a free attack!";}
 
             
 
@@ -50,28 +72,27 @@ on('chat:message', function(mel) {
 
             {//log(melfumbroll);
 
-
             if (melfumbroll < 201)
 
-            {var OE= "No special ill effect.";}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{Effect= No special ill effect.}}");}
 
             else
 
             {if (melfumbroll < 217)
 
-            {var OE= "Sweat in your eyes, -1 attack for 10 seconds.";}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{Eeffect=Sweat in your eyes, -1 attack for 10 seconds.}}");}
 
             else
 
             {if (melfumbroll < 233)
 
-            {var OE="Blood in your eyes, -3 attack for 10 seconds.";}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{Effect=Blood in your eyes, -3 attack for 10 seconds.}}");}
 
             else
 
             {if (melfumbroll < 248)
 
-            {var OE="Random ally within reach+5' is automatically hit by their opponent and the ally's count resets.";}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?=Random ally within reach+5' is automatically hit by their opponent and the ally's count resets.}}");}
 
             else
 
@@ -87,103 +108,103 @@ on('chat:message', function(mel) {
 
             penaltydur = penaltydur + pendur - 1;}
 
-            var OE= "Distracted by ally or opponent; add " + penaltydur + " seconds wait time before next attack and -4 penalty to Defense whilst so distracted.";}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Distracted by ally or opponent}}{{ Effect = add " + penaltydur + " seconds wait time before next attack and -4 penalty to Defense whilst so distracted.}}");}
 
             else
 
             {if (melfumbroll < 277)
 
-            {var OE="Boot/footgear breaks, -1 to attack and defense until repaired or discarded.";}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Boot/footgear breaks}}{{Effect= -1 to attack and defense until repaired or discarded.}}");}
 
             else
 
             {if (melfumbroll < 319)
 
-            {var OE="Backpack, pouch, or other container strap breaks, -1 to attack and defense until item repaired or discarded.";}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}}{{What Happened?= Backpack, pouch, or other container strap breaks}}{{Effect= -1 to attack and defense until item repaired or discarded.}}");}
 
             else
 
             {if (melfumbroll < 344)
 
-            {var OE="Belt, girdle, etc. breaks, -1 to attack and defense until item repaired or discarded.";}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Belt, girdle, etc. breaks}}{{Effect= -1 to attack and defense until item repaired or discarded.}}");}
 
             else
 
             {if (melfumbroll < 365)
 
-            {var OE="Armor loosened, -1 to attack and defense until readjusted (by redonning or by another person helping for 10 seconds).";}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Armor loosened }}{{Effect= -1 to attack and defense until readjusted (by redonning or by another person helping for 10 seconds).}}");}
 
             else
 
             {if (melfumbroll < 371)
 
-            {var OE="Armor strap breaks and -2 to attack and defense until repaired.";}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Armor strap breaks }}{{Effect= -2 to attack and defense until repaired.}}");}
 
             else
 
             {if (melfumbroll < 399)
 
-            {var OE="Shield strap breaks and -3 to attack and defense until repaired or discarded.";}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Shield strap breaks}}{{ Effect= -3 to attack and defense until repaired or discarded.}}");}
 
             else
 
             {if (melfumbroll < 437)
 
-            {var OE="Damage own armor (1 point).";}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Damage own armor (1 point).}}");}
 
             else
 
             {if (melfumbroll < 473)
 
-            {var OE="Handle broken, -1 attack penalty.";}
+            {sendChat("Fumble", "&{template:hm_std}{{name= Other Complications}}{{What Happened?= Weapon handle broken}}{{Effect=-1 attack penalty.}}");}
 
             else
 
             {if (melfumbroll < 509)
 
-            {var OE="Blade/head broken, -1 to damage.";}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Blade/head broken}}{{Effect=-1 to damage.}}");}
 
             else
 
             {if (melfumbroll < 518)
 
-            {var OE="Blade shattered (useless).";}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Blade shattered (useless).}}");}
 
             else
 
             {if (melfumbroll < 527)
 
-            {var OE="Handle/haft sheared (useless).";}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Handle/haft sheared (useless).}}");}
 
             else
 
             {if (melfumbroll < 536)
 
-            {var OE="Sheared (useless).";}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Sheared (useless).}}");}
 
             else
 
             {if (melfumbroll < 554)
 
-            {var OE="Handle badly broken, -2 attack penalty.";}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Handle badly broken}}{{Effect= -2 attack penalty.}}");}
 
             else
 
             {if (melfumbroll < 572)
 
-            {var OE="Blade/head badly broken, -25% damage.";}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Blade/head badly broken}}{[Effect=  -25% damage.}}");}
 
             else
 
             {if (melfumbroll < 581)
 
-            {var OE="Blade/head sheared/cracked, -50% to damage.";}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Blade/head sheared/cracked}}{{Effect= -50% to damage.}}");}
 
             else
 
             {if (melfumbroll < 617)
 
-            {var OE="Edge dulled, nicked, and/or cracked, -1 to attack and damage.";}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Edge dulled, nicked, and/or cracked}}{{Effect= -1 to attack and damage.}}");}
 
             else
 
@@ -191,7 +212,7 @@ on('chat:message', function(mel) {
 
             {penaltydur = randomInteger(4);
 
-            var OE="Overextend, +" + penaltydur + " seconds penalty to next attack, -2 to next defense roll.";}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Overextend}}{{Effect= +" + penaltydur + " seconds penalty to next attack, -2 to next defense roll.}}");}
 
             else
 
@@ -201,7 +222,7 @@ on('chat:message', function(mel) {
 
             penaltydur = randomInteger(6);
 
-            var OE="Hinder a random ally within 5' + weapon reach. They suffer +" + penaltydur + " seconds penalty to next attack and a -" + penalty + " to hit penalty on next attack roll or 25% chance of hitting you instead. If the ally is a spellcaster in the midst of casting a spell this counts as 'Caster struck by blow absorbed by body armor' for spell mishaps.";}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Hinder a random ally within 5' + weapon reach.}}{{Effect= They suffer +" + penaltydur + " seconds penalty to next attack and a -" + penalty + " to hit penalty on next attack roll or 25% chance of hitting you instead. If the ally is a spellcaster in the midst of casting a spell this counts as 'Caster struck by blow absorbed by body armor' for spell mishaps.}}");}
 
             else
 
@@ -209,13 +230,13 @@ on('chat:message', function(mel) {
 
             {penaltydur = randomInteger(4);
 
-            var OE= "Off balance, +" + penaltydur + " seconds to next attack.";}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Off balance}}{{Effect= +" + penaltydur + " seconds to next attack.}}");}
 
             else
 
             {if (melfumbroll < 673)
 
-            {var OE="Overextend, -2 to next defense roll.";}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Overextend}}{{Effect= -2 to next defense roll.}}");}
 
             else
 
@@ -235,7 +256,7 @@ on('chat:message', function(mel) {
 
             penalty = penalty + 6;
 
-            var OE="Slip, make a Feat of Agility check vs. " + penalty + " or fall prone and suffer a -6 to all defense and attack rolls for 10 seconds.";}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Slip }}{{Effect= make a Feat of Agility check vs. " + penalty + " or fall prone and suffer a -6 to all defense and attack rolls for 10 seconds.}}");}
 
             else
 
@@ -265,11 +286,11 @@ on('chat:message', function(mel) {
 
             {penaltydur = penaltydur * 1.5;
 
-            var OE="Muscle tear in left big toe. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Muscle tear in left big toe }}{{Effect=  -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.}}");}
 
             else
 
-            {var OE="Left big toe is sprained/hyperextended. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Left big toe is sprained/hyperextended }}{{Effect=  -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.}}");}}
 
             else
 
@@ -299,11 +320,11 @@ on('chat:message', function(mel) {
 
             {penaltydur = penaltydur * 1.5;
 
-            var OE= "Muscle tear in right big toe. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Muscle tear in right big toe}}{{Effect= -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.}}");}
 
             else
 
-            {var OE="Right big toe is sprained/hyperextended. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Right big toe is sprained/hyperextended}}{{Effect= -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.}}");}}
 
             else
 
@@ -333,11 +354,11 @@ on('chat:message', function(mel) {
 
             {penaltydur = penaltydur * 1.5;
 
-            var OE="Muscle tear in left foot. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Muscle tear in left foot.}}{{Effect= -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.}}");}
 
             else
 
-            {var OE="Left foot is sprained/hyperextended. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Left foot is sprained/hyperextended.}}{[Effect= -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.}}");}}
 
             else
 
@@ -367,11 +388,11 @@ on('chat:message', function(mel) {
 
             {penaltydur = penaltydur * 1.5;
 
-            var OE="Muscle tear in right foot. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Muscle tear in right foot}}{{Effect= -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.}}");}
 
             else
 
-            {var OE="Right foot is sprained/hyperextended. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Right foot is sprained/hyperextended.}}{{Effect= -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.}}");}}
 
             else
 
@@ -401,11 +422,11 @@ on('chat:message', function(mel) {
 
             {penaltydur = penaltydur * 1.5;
 
-            var OE="Muscle tear in right ankle. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Muscle tear in right ankle.}}{{Effect= -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.}}");}
 
             else
 
-            {var OE="Right ankle is sprained/hyperextended. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Right ankle is sprained/hyperextended.}}{{Effect= -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.}}");}}
 
             else
 
@@ -435,11 +456,11 @@ on('chat:message', function(mel) {
 
             {penaltydur = penaltydur * 1.5;
 
-            var OE="Muscle tear in left ankle. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Muscle tear in left ankle.}}{{Effect= -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.}}");}
 
             else
 
-            {var OE="Left ankle is sprained/hyperextended. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Left ankle is sprained/hyperextended.}}{{Effect= -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.}}");}}
 
             else
 
@@ -469,11 +490,11 @@ on('chat:message', function(mel) {
 
             {penaltydur = penaltydur * 1.5;
 
-            var OE="Muscle tear in right knee. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Muscle tear in right knee.}}{{Effect= -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.}}");}
 
             else
 
-            {var OE="Right knee is sprained/hyperextended. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Right knee is sprained/hyperextended.}}{{Effect= -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.}}");}}
 
             else
 
@@ -503,11 +524,11 @@ on('chat:message', function(mel) {
 
             {penaltydur = penaltydur * 1.5;
 
-            var OE="Muscle tear in left knee. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Muscle tear in left knee.}}{{Effect= -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.}}");}
 
             else
 
-            {var OE="Left knee is sprained/hyperextended. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Left knee is sprained/hyperextended.}}{{Effect= -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.}}");}}
 
             else
 
@@ -537,11 +558,11 @@ on('chat:message', function(mel) {
 
             {penaltydur = penaltydur * 1.5;
 
-            var OE="Muscle tear in right hip. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Muscle tear in right hip.}}{{Effect= -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.}}");}
 
             else
 
-            {var OE="Right hip is sprained/hyperextended. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Right hip is sprained/hyperextended.}}{{Effect= -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.}}");}}
 
             else
 
@@ -571,11 +592,11 @@ on('chat:message', function(mel) {
 
             {penaltydur = penaltydur * 1.5;
 
-            var OE="Muscle tear in left hip. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Muscle tear in left hip.}]{{Effect= -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.}}");}
 
             else
 
-            {var OE="Left hip is sprained/hyperextended. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Left hip is sprained/hyperextended.}}{{Effect= -" + penalty + " attack penalty and -50% movement. Injury heals over }}" + penaltydur + " weeks.");}}
 
             else
 
@@ -605,11 +626,11 @@ on('chat:message', function(mel) {
 
             {penaltydur = penaltydur * 1.5;
 
-            var OE="Muscle tear in right wrist. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Muscle tear in right wrist.}}{{Effect= -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.}}");}
 
             else
 
-            {var OE="Right wrist is sprained/hyperextended. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?=Right wrist is sprained/hyperextended.}}{{Effect= -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.}}");}}
 
             else
 
@@ -639,11 +660,11 @@ on('chat:message', function(mel) {
 
             {penaltydur = penaltydur * 1.5;
 
-            var OE="Muscle tear in left wrist. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Muscle tear in left wrist.}}{{Effect= -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.}}");}
 
             else
 
-            {var OE="Left wrist is sprained/hyperextended. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Left wrist is sprained/hyperextended.}}{{Effect= -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.}}");}}
 
             else
 
@@ -673,11 +694,11 @@ on('chat:message', function(mel) {
 
             {penaltydur = penaltydur * 1.5;
 
-            var OE="Muscle tear in right shoulder. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Muscle tear in right shoulder.}}{{Effect=-" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.}}");}
 
             else
 
-            {var OE="Right shoulder is sprained/hyperextended. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Right shoulder is sprained/hyperextended.}}{{Effect= -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.}}");}}
 
             else
 
@@ -707,11 +728,11 @@ on('chat:message', function(mel) {
 
             {penaltydur = penaltydur * 1.5;
 
-            var OE="Muscle tear in left shoulder. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Muscle tear in left shoulder.}}{{Effect= -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.}}");}
 
             else
 
-            {var OE="Left shoulder is sprained/hyperextended. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Left shoulder is sprained/hyperextended.}}{[Effect= -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.}}");}}
 
             else
 
@@ -741,11 +762,11 @@ on('chat:message', function(mel) {
 
             {penaltydur = penaltydur * 1.5;
 
-            var OE="Muscle tear in right elbow. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Muscle tear in right elbow.}}{{Effect= -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.}}");}
 
             else
 
-            {var OE="Right elbow is sprained/hyperextended. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Right elbow is sprained/hyperextended.}}{{Effect= -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.}}");}}
 
             else
 
@@ -775,11 +796,11 @@ on('chat:message', function(mel) {
 
             {penaltydur = penaltydur * 1.5;
 
-            var OE="Muscle tear in left elbow. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Muscle tear in left elbow.}}{{Effect= -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.}}");}
 
             else
 
-            {var OE="Left elbow is sprained/hyperextended. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Left elbow is sprained/hyperextended.}}{{Effect= -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.}}");}}
 
             else
 
@@ -809,11 +830,11 @@ on('chat:message', function(mel) {
 
             {penaltydur = penaltydur * 1.5;
 
-            var OE="Muscle tear in neck. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Muscle tear in neck.}}{{Effect= -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.}}");}
 
             else
 
-            {var OE="Neck is sprained/hyperextended. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Neck is sprained/hyperextended.}}{{Effect= -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.}}");}}
 
             else
 
@@ -843,11 +864,11 @@ on('chat:message', function(mel) {
 
             {penaltydur = penaltydur * 1.5;
 
-            var OE="Muscle tear in back. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Muscle tear in back.}}{{Effect= -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.}}");}
 
             else
 
-            {var OE="Back is sprained/hyperextended. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Back is sprained/hyperextended.}}{{Effect= -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.}}");}}
 
             else
 
@@ -877,11 +898,11 @@ on('chat:message', function(mel) {
 
             {penaltydur = penaltydur * 1.5;
 
-            var OE="Muscle tear in left achilles. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Muscle tear in left achilles.}}{{Effect= -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.}}");}
 
             else
 
-            {var OE="Left achilles is sprained/hyperextended. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Left achilles is sprained/hyperextended.}}{{effect= -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.}}");}}
 
             else
 
@@ -911,11 +932,11 @@ on('chat:message', function(mel) {
 
             {penaltydur = penaltydur * 1.5;
 
-            var OE="Muscle tear in right achilles. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Muscle tear in right achilles.}}{{Effect= -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.}}");}
 
             else
 
-            {var OE="Right achilles is sprained/hyperextended. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Right achilles is sprained/hyperextended.}}{{Effect= -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.}}");}}
 
             else
 
@@ -955,7 +976,7 @@ on('chat:message', function(mel) {
 
             pen = pen - 0.5;}
 
-            var OE="Torn ligament in left calf. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.";}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Torn ligament in left calf.}}{{Effect= -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.}}");}
 
             else
 
@@ -967,7 +988,7 @@ on('chat:message', function(mel) {
 
             pen = pen - 1;}
 
-            var OE="Muscle in left calf is strained/pulled. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Muscle in left calf is strained/pulled.}}{{Effect= -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.}}");}}
 
             else
 
@@ -1007,7 +1028,7 @@ on('chat:message', function(mel) {
 
             pen = pen - 0.5;}
 
-            var OE="Torn ligament in right calf. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.";}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Torn ligament in right calf.}}{{Effect= -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.}}");}
 
             else
 
@@ -1019,7 +1040,7 @@ on('chat:message', function(mel) {
 
             pen = pen - 1;}
 
-            var OE="Muscle in right calf is strained/pulled. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Muscle in right calf is strained/pulled.}}{{Effect= -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.}}");}}
 
             else
 
@@ -1059,7 +1080,7 @@ on('chat:message', function(mel) {
 
             pen = pen - 0.5;}
 
-            var OE="Torn ligament in left hamstring. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.";}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Torn ligament in left hamstring.}}{{Effect= -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.}}");}
 
             else
 
@@ -1071,7 +1092,7 @@ on('chat:message', function(mel) {
 
             pen = pen - 1;}
 
-            var OE="Muscle in left hamstring is strained/pulled. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Muscle in left hamstring is strained/pulled.}}{{Effect= -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.}}");}}
 
             else
 
@@ -1111,7 +1132,7 @@ on('chat:message', function(mel) {
 
             pen = pen - 0.5;}
 
-            var OE="Torn ligament in right hamstring. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.";}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Torn ligament in right hamstring.}}{{Effect= -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.}}");}
 
             else
 
@@ -1123,7 +1144,7 @@ on('chat:message', function(mel) {
 
             pen = pen - 1;}
 
-            var OE="Muscle in right hamstring is strained/pulled. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Muscle in right hamstring is strained/pulled.}}{{Effect= -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.}}");}}
 
             else
 
@@ -1163,7 +1184,7 @@ on('chat:message', function(mel) {
 
             pen = pen - 0.5;}
 
-            var OE="Torn ligament in left quadriceps. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.";}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Torn ligament in left quadriceps.}}{{Effect= -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.}}");}
 
             else
 
@@ -1175,7 +1196,7 @@ on('chat:message', function(mel) {
 
             pen = pen - 1;}
 
-            var OE="Muscle in left quadriceps is strained/pulled. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Muscle in left quadriceps is strained/pulled.}}{{Effect= -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.}}");}}
 
             else
 
@@ -1215,7 +1236,7 @@ on('chat:message', function(mel) {
 
             pen = pen - 0.5;}
 
-            var OE="Torn ligament in right quadriceps. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.";}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Torn ligament in right quadriceps.}}{{Effect= -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.}}");}
 
             else
 
@@ -1227,7 +1248,7 @@ on('chat:message', function(mel) {
 
             pen = pen - 1;}
 
-            var OE="Muscle in right quadriceps is strained/pulled. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Muscle in right quadriceps is strained/pulled.}}{{Effect= -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.}}");}}
 
             else
 
@@ -1267,7 +1288,7 @@ on('chat:message', function(mel) {
 
             pen = pen - 0.5;}
 
-            var OE="Torn ligament in gluteus maximus. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.";}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Torn ligament in gluteus maximus.}}{{Effect=-" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.}}");}
 
             else
 
@@ -1279,7 +1300,7 @@ on('chat:message', function(mel) {
 
             pen = pen - 1;}
 
-            var OE="Muscle in gluteus maximus is strained/pulled. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Muscle in gluteus maximus is strained/pulled.}}{{Effect= -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.}}");}}
 
             else
 
@@ -1319,7 +1340,7 @@ on('chat:message', function(mel) {
 
             pen = pen - 0.5;}
 
-            var OE="Torn ligament in forearm. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.";}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Torn ligament in forearm.}}{{Effect= -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.}}");}
 
             else
 
@@ -1331,7 +1352,7 @@ on('chat:message', function(mel) {
 
             pen = pen - 1;}
 
-            var OE="Muscle in forearm is strained/pulled. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Muscle in forearm is strained/pulled.}}{{Effect= -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.}}");}}
 
             else
 
@@ -1371,7 +1392,7 @@ on('chat:message', function(mel) {
 
             pen = pen - 0.5;}
 
-            var OE="Torn ligament in bicep. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.";}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Torn ligament in bicep.}}{{Effect= -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.}}");}
 
             else
 
@@ -1383,7 +1404,7 @@ on('chat:message', function(mel) {
 
             pen = pen - 1;}
 
-            var OE="Muscle in bicep is strained/pulled. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Muscle in bicep is strained/pulled.}}{{Effect= -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.}}");}}
 
             else
 
@@ -1423,7 +1444,7 @@ on('chat:message', function(mel) {
 
             pen = pen - 0.5;}
 
-            var OE="Torn ligament in tricep. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.";}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Torn ligament in tricep.}}{{Effect= -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.}}");}
 
             else
 
@@ -1435,7 +1456,7 @@ on('chat:message', function(mel) {
 
             pen = pen - 1;}
 
-            var Oe="Muscle in tricep is strained/pulled. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Muscle in tricep is strained/pulled.}}{{Effect= -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.}}");}}
 
             else
 
@@ -1475,7 +1496,7 @@ on('chat:message', function(mel) {
 
             pen = pen - 0.5;}
 
-            var OE="Torn ligament in lower back. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.";}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Torn ligament in lower back.}}{{Effect= -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.}}");}
 
             else
 
@@ -1487,7 +1508,7 @@ on('chat:message', function(mel) {
 
             pen = pen - 1;}
 
-            var OE="Muscle in lower back is strained/pulled. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Muscle in lower back is strained/pulled.}}{{Effect= -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.}}");}}
 
             else
 
@@ -1527,7 +1548,7 @@ on('chat:message', function(mel) {
 
             pen = pen - 0.5;}
 
-            var OE="Torn ligament in side. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.";}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Torn ligament in side.}}{{Effect= " + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.}}");}
 
             else
 
@@ -1539,7 +1560,7 @@ on('chat:message', function(mel) {
 
             pen = pen - 1;}
 
-            var OE="Muscle in side is strained/pulled. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Muscle in side is strained/pulled.}}{{Effect= -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.}}");}}
 
             else
 
@@ -1579,7 +1600,7 @@ on('chat:message', function(mel) {
 
             pen = pen - 0.5;}
 
-            var OE="Torn ligament in upper back. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.";}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Torn ligament in upper back.}}{{Effect= -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.}}");}
 
             else
 
@@ -1591,7 +1612,7 @@ on('chat:message', function(mel) {
 
             pen = pen - 1;}
 
-            var OE="Muscle in upper back is strained/pulled. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Muscle in upper back is strained/pulled.}}{{Effect= -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.}}");}}
 
             else
 
@@ -1631,7 +1652,7 @@ on('chat:message', function(mel) {
 
             pen = pen - 0.5;}
 
-            var OE="Torn ligament in left shoulder. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.";}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Torn ligament in left shoulder. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.}}");}
 
             else
 
@@ -1643,7 +1664,7 @@ on('chat:message', function(mel) {
 
             pen = pen - 1;}
 
-            var OE="Muscle in left shoulder is strained/pulled. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Muscle in left shoulder is strained/pulled.}}{{Effect= -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.}}");}}
 
             else
 
@@ -1683,7 +1704,7 @@ on('chat:message', function(mel) {
 
             pen = pen - 0.5;}
 
-            var OE="Torn ligament in right shoulder. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.";}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Torn ligament in right shoulder.}}{{Effect= -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.}}");}
 
             else
 
@@ -1695,7 +1716,7 @@ on('chat:message', function(mel) {
 
             pen = pen - 1;}
 
-            var OE="Muscle in right shoulder is strained/pulled. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Muscle in right shoulder is strained/pulled.}}{{Effect= -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.}}");}}
 
             else
 
@@ -1735,7 +1756,7 @@ on('chat:message', function(mel) {
 
             pen = pen - 0.5;}
 
-            var OE="Torn ligament in neck. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.";}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Torn ligament in neck.}}{{Effect= -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.}}");}
 
             else
 
@@ -1747,7 +1768,7 @@ on('chat:message', function(mel) {
 
             pen = pen - 1;}
 
-            var OE="Muscle in neck is strained/pulled. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Muscle in neck is strained/pulled.}}{{Effect= -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.}}");}}
 
             else
 
@@ -1787,7 +1808,7 @@ on('chat:message', function(mel) {
 
             pen = pen - 0.5;}
 
-            var OE="Torn ligament in hip. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.";}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Torn ligament in hip.}}{{Effect= -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.}}");}
 
             else
 
@@ -1799,7 +1820,7 @@ on('chat:message', function(mel) {
 
             pen = pen - 1;}
 
-            var OE="Muscle in hip is strained/pulled. -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.";}}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Muscle in hip is strained/pulled.}}{{Effect= -" + penalty + " attack penalty and -50% movement. Injury heals over " + penaltydur + " weeks.}}");}}
 
             else
 
@@ -1839,7 +1860,7 @@ on('chat:message', function(mel) {
 
             pen = pen - 0.5;}
 
-            var OE="Torn ligament in abs. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.";}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Torn ligament in abs.}}{{Effect= -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks, but half the penalty is permanent.}}");}
 
             else
 
@@ -1851,7 +1872,7 @@ on('chat:message', function(mel) {
 
             pen = pen - 1;}
 
-            var OE="Muscle in abs is strained/pulled. -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.";}}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Muscle in abs is strained/pulled.}}{{Effect= -" + penalty + " attack penalty. Injury heals over " + penaltydur + " weeks.}}");}}
 
             else
 
@@ -1869,103 +1890,103 @@ on('chat:message', function(mel) {
 
             penalty = penalty + pen - 1;}}
 
-            var OE="Automatically inflict damage to a random ally within 5' + weapon reach. Roll damage dice and add strength bonus/penalty, but do not add bonuses from talents or specialization. Attempt a Feat of Agility check vs. " + penalty + " to deliver only half damage.";}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Automatically inflict damage to a random ally within 5' + weapon reach.}}{{Effect= Roll damage dice and add strength bonus/penalty, but do not add bonuses from talents or specialization. Attempt a Feat of Agility check vs. " + penalty + " to deliver only half damage.}}");}
 
             else
 
             {if (melfumbroll < 942)
 
-            {var OE="Drop weapon at feet.";}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Drop weapon at feet.}}");}
 
             else
 
             {if (melfumbroll < 965)
 
-            {var OE="Drop weapon 2 feet away.";}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Drop weapon 2 feet away.}}");}
 
             else
 
             {if (melfumbroll < 983)
 
-            {var OE="Drop weapon 3 feet away.";}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Drop weapon 3 feet away.}}");}
 
             else
 
             {if (melfumbroll < 996)
 
-            {var OE="Drop weapon 4 feet away.";}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Drop weapon 4 feet away.}}");}
 
             else
 
             {if (melfumbroll < 1005)
 
-            {var OE="Toss weapon 5 feet away.";}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Toss weapon 5 feet away.}}");}
 
             else
 
             {if (melfumbroll < 1011)
 
-            {var OE="Toss weapon 6 feet away.";}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{What Happened?= Toss weapon 6 feet away.}}");}
 
             else
 
             {if (melfumbroll < 1016)
 
-            {var OE="Toss weapon 7 feet away.";}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Toss weapon 7 feet away.}}");}
 
             else
 
             {if (melfumbroll < 1021)
 
-            {var OE="Toss weapon 8 feet away.";}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Toss weapon 8 feet away.}}");}
 
             else
 
             {if (melfumbroll < 1025)
 
-            {var OE="Toss weapon 9 feet away.";}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Toss weapon 9 feet away.}}");}
 
             else
 
             {if (melfumbroll < 1029)
 
-            {var OE="Throw weapon 10 feet away.";}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Throw weapon 10 feet away.}}");}
 
             else
 
             {if (melfumbroll < 1032)
 
-            {var OE="Throw weapon 11 feet away.";}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Throw weapon 11 feet away.}}");}
 
             else
 
             {if (melfumbroll < 1035)
 
-            {var OE="Throw weapon 12 feet away.";}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Throw weapon 12 feet away.}}");}
 
             else
 
             {if (melfumbroll < 1038)
 
-            {var OE="Throw weapon 13 feet away.";}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Throw weapon 13 feet away.}}");}
 
             else
 
             {if (melfumbroll < 1040)
 
-            {var OE="Throw weapon 14 feet away.";}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Throw weapon 14 feet away.}}");}
 
             else
 
             {if (melfumbroll < 1042)
 
-            {var OE="Hurl weapon 15 feet away.";}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Hurl weapon 15 feet away.}}");}
 
             else
 
             {if (melfumbroll < 1044)
 
-            {var OE="Hurl weapon 16 feet away.";}
+            {sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Hurl weapon 16 feet away.}}");}
 
             else
 
@@ -1983,7 +2004,7 @@ on('chat:message', function(mel) {
 
             penalty = penalty + 16;
 
-            var OE="Hurl weapon " + penalty + " feet away.";}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Hurl weapon " + penalty + " feet away.}}");}
 
             else
 
@@ -2001,15 +2022,15 @@ on('chat:message', function(mel) {
 
             penalty = penalty + pen - 1;}}
 
-            var OE="Clumsily incur self-inflicted wound. Roll damage dice and add strength bonus/penalty, but do not add bonuses from talents or specialization. Attempt a Feat of Agility check vs. " + penalty + " to sustain only half damage.";}
+            sendChat("Fumble", "&{template:hm_std}{{name=Fumble Result}}{{Free Attack= "+ OE +"}}{{Fumble result == " + melfumbroll +"}}{{What Happened?= Clumsily incur self-inflicted wound.}}{{Effect= Roll damage dice and add strength bonus/penalty, but do not add bonuses from talents or specialization. Attempt a Feat of Agility check vs. " + penalty + " to sustain only half damage.}}");}
 
             else
 
             {if (melfumbroll < 1201)
-			
+
             {count = count + 2;
 
-            var OE="Double results! If identical results are obtained, then add the durations together.";
+            sendChat("Fumble", "&{template:hm_std}{{name= Terrible Luck!}}{{What Happened?= Double results!}}{{Effect= If identical results are obtained, then add the durations together.}}");
 
             //log("At roll 1 Count " + count);
 
@@ -2019,14 +2040,14 @@ on('chat:message', function(mel) {
 
             {count = count + 3;
 
-            var OE= "Triple results! If identical results are obtained, then add the durations together.";
+            sendChat("Fumble", "&{template:hm_std}{{name= Horrendous Luck}}{{What Happened?= Triple results!}}{{Effect= If identical results are obtained, then add the durations together.}}");
 
             //log("At roll 2 Count " + count);
 
             }
-            
+
             }}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
-            sendChat('', "&{template:hm_std}{{name= Fumble}}{{Free Attack? =" + FreeAtt +"}}{{Fumble Result= "  + melfumbroll + "{{ Other Effect=" +OE+ "}}");
+
         count = count - 1;
 
         error = error + 1;
