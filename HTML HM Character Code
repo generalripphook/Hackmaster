@@ -3,6 +3,14 @@
 const int = score => parseInt(score) || 0;
 const float = score => parseFloat(score) || 0;
 
+const buttonlist = ["fatigue","character","spellstab"];
+                buttonlist.forEach(button => {
+                    on(`clicked:${button}`, function() {
+                        setAttrs({
+                            sheetTab: button
+                        });
+                    });
+                });
 
 on('sheet:opened', function () {
     getAttrs(['codeversion'], function (values) {
@@ -1081,108 +1089,7 @@ on("change:skill_dice_switch sheet:opened", function() {
                 <div class="sheet-col-3-8"></div>
             </div>
             <hr/>
-            
-                        <h4>Fatigue</h4>
-            
-            <div class="sheet-row sheet-stat-row sheet-padr">
-                <div class="sheet-col-1-8"></div>
-                <div class="sheet-col-1-8">Base Fatigue</div>
-                <div class="sheet-col-1-8">Current Fatigue</div>
-                <div class="sheet-col-1-8">Attack Mod</div>
-                <div class="sheet-col-1-8">Speed Mod</div>
-                <div class="sheet-col-1-8">Defense Mod</div>
-                <div class="sheet-col-1-8">Damage Mod</div>
-                <div class="sheet-col-1-8">Fatigue Check</div>
-            </div>
-            
-            <div class="sheet-row sheet-stat-row sheet-padr">
-                <div class="sheet-col-1-8"></div>
-                <div class="sheet-col-1-8"><input type="number" name="attr_base_fatigue" value="@{fatigue_con}+@{class_fatigue}+@{fatigue_wis}+@{fatigue_shield}+@{fatigue_armor}+@{fatigue_weight}+@{fatigue_misc}" disabled="disabled" /></div>
-                <input type="hidden" name="attr_base_fatigue_con" value="0" />
-                <input type="hidden" name="attr_base_fatigue_wis" value="0" />
-                <div class="sheet-col-1-8"><input type="number" name="attr_current_fatigue" value="0"/></div>
-                <div class="sheet-col-1-8"><input type="number" name="attr_fatigue_attack" value="0"/></div>
-                <div class="sheet-col-1-8"><input type="number" name="attr_fatigue_speed" value="0"/></div>
-                <div class="sheet-col-1-8"><input type="number" name="attr_fatigue_defense" value="0"/></div>
-                <div class="sheet-col-1-8"><input type="number" name="attr_fatigue_damage" value="0"/></div>
-                <div class="sheet-col-1-8"><button class="sheet-skill-roll" type='roll' name='roll_ability_save' value=' @{character_name} makes a Fatigue Check (roll above current fatigue) \n\n Fatigue Check :[[1d20]] vs @{current_fatigue}'></button></div>
-                <fieldset class="sheet-col-1-2">
-                <input type="checkbox" class="wombat-show arrow" name="attr_fatigue_wombat_show" title="Show/Hide" value="1">
-                <span>Base Fatigue Details</span>
-                <div class="wombat">
-                <div class="sheet-col-3-4">These automatically apply to base fatigue</div>
-                <div class="sheet-col-3-8">Shield</div>
-                <div class="sheet-col-3-8">
-                    <select name="attr_fatigue_shield">
-					    <option value="0">None</option>
-					    <option value="0+0">Buckler</option>
-                        <option value="1">Small or Medium </option>
-                        <option value="2">Large</option>
-                        <option value="3">Body</option>
-				    </select>
-				</div>
-                <div class="sheet-col-3-8">Armor</div>
-                <div class="sheet-col-3-8">
-                    <select name="attr_fatigue_armor">
-					    <option value="0">None</option>
-					    <option value="0+0">Light</option>
-                        <option value="1">Medium </option>
-                        <option value="2">Heavy</option>
-				    </select>
-				</div>
-                <div class="sheet-col-3-8">Weight</div>
-                <div class="sheet-col-3-8">
-                    <select name="attr_fatigue_weight">
-					    <option value="0">Healthy</option>
-                        <option value="1">Overweight</option>
-                        <option value="3">Obese</option>
-				    </select>
-                </div>
-                <div class="sheet-col-3-8">Misc</div>
-                <div class="sheet-col-3-8"><input type="number" name="attr_fatigue_misc" value="0"/></div>
-                </fieldset>
-                <fieldset class="sheet-col-1-2">
-                <input type="checkbox" class="wombat-show arrow" name="attr_wombat_show" title="Show/Hide" value="1">
-                <span>Situational Modifiers</span>
-                <div class="wombat">
-                <div class="sheet-col-3-4">These do not automatically apply to base fatigue</div>
-                <div class="sheet-col-3-8">Encumberance</div>
-                <div class="sheet-col-3-8">
-                    <select name="attr_fatigue_encumberance">
-					    <option value="0">None = 0</option>
-					    <option value="1">Light = 1</option>
-                        <option value="2">Medium = 2 </option>
-                        <option value="3">Heavy = 3</option>
-				    </select>
-				</div>
-                <div class="sheet-col-3-8">Wounded</div>
-                <div class="sheet-col-3-8">
-                    <select name="attr_fatigue_wounds">
-					    <option value="0"> 100%= 0</option>
-					    <option value="1"> 51-99% = +1</option>
-                        <option value="4"> 11-50%= +4 </option>
-                        <option value="8"> 1-10%= +8</option>
-				    </select>
-				</div>
-				<div class="sheet-col-3-4">Wound Thresholds</div>
-				<div class="sheet-col-3-8"> 50% Threshold</div>
-				<div class="sheet-col-3-8"><input type="number" name="attr_50_thresh" value="0"  /></div>
-				<div class="sheet-col-3-8"> 10% Threshold</div>
-				<div class="sheet-col-3-8"><input type="number" name="attr_10_thresh" value="0"  /></div>
-                </fieldset>
-            </div>
-            <hr/>
-            
-            <h3>Character Traits</h3>
-            
-            <h4>Proficiencies</h4>
-            <div><textarea name="attr_proficiencies"></textarea></div>
-            <hr/>
-         
-            <h4>Talents & Racial Abilities</h4>
-            <div><textarea name="attr_talents"></textarea></div>
-            <hr/>
-            
+            <div>
             <h4>Languages</h4>
             <div class="sheet-row sheet-heading-row">
                 <div class="sheet-col-1-16"></div>
@@ -1212,12 +1119,114 @@ on("change:skill_dice_switch sheet:opened", function() {
                 <div class="sheet-col-1-16"></div>
             </fieldset>
             <hr/>
+            <button type="action" name="act_fatigue" >Fatigue</button>
+            <button type="action" name="act_character" >Character Traits</button>
+            <button type="action" name="act_spellstab" >Spells</button>
+                </div>
+                <input type='hidden' class='sheet-tabstoggle' name='attr_sheetTab'  value='character'  />
+                
+                <div class='sheet-fatigue'>
+                  <h4>Fatigue</h4>
+            
+            <div class="sheet-row sheet-stat-row sheet-padr">
+                <div class="sheet-col-1-8"></div>
+                <div class="sheet-col-1-8">Base Fatigue</div>
+                <div class="sheet-col-1-8">Current Fatigue</div>
+                <div class="sheet-col-1-8">Attack Mod</div>
+                <div class="sheet-col-1-8">Speed Mod</div>
+                <div class="sheet-col-1-8">Defense Mod</div>
+                <div class="sheet-col-1-8">Damage Mod</div>
+                <div class="sheet-col-1-8">Fatigue Check</div>
+            </div>
+            
+            <div class="sheet-row sheet-stat-row sheet-padr">
+                <div class="sheet-col-1-8"></div>
+                <div class="sheet-col-1-8"><input type="number" name="attr_base_fatigue" value="@{fatigue_con}+@{class_fatigue}+@{fatigue_wis}+@{fatigue_shield}+@{fatigue_armor}+@{fatigue_weight}+@{fatigue_misc}" disabled="disabled" /></div>
+                <input type="hidden" name="attr_base_fatigue_con" value="0" />
+                <input type="hidden" name="attr_base_fatigue_wis" value="0" />
+                <div class="sheet-col-1-8"><input type="number" name="attr_current_fatigue" value="0"/></div>
+                <div class="sheet-col-1-8"><input type="number" name="attr_fatigue_attack" value="0"/></div>
+                <div class="sheet-col-1-8"><input type="number" name="attr_fatigue_speed" value="0"/></div>
+                <div class="sheet-col-1-8"><input type="number" name="attr_fatigue_defense" value="0"/></div>
+                <div class="sheet-col-1-8"><input type="number" name="attr_fatigue_damage" value="0"/></div>
+                <div class="sheet-col-1-8"><button class="sheet-skill-roll" type='roll' name='roll_ability_save' value=' @{character_name} makes a Fatigue Check (roll above current fatigue) \n\n Fatigue Check :[[1d20]] vs @{current_fatigue}'></button></div>
+                <div class="sheet-col-1-2">These automatically apply to base fatigue</div>
+                <div class="sheet-col-1-2">These do not automatically apply to base fatigue</div>
+                <div class="sheet-col-1-4">Shield</div>
+                <div class="sheet-col-1-4">
+                    <select name="attr_fatigue_shield">
+					    <option value="0">None</option>
+					    <option value="0+0">Buckler</option>
+                        <option value="1">Small or Medium </option>
+                        <option value="2">Large</option>
+                        <option value="3">Body</option>
+				    </select>
+				</div>
+				<div class="sheet-col-1-4">Encumberance</div>
+				<div class="sheet-col-1-4">
+                    <select name="attr_fatigue_encumberance">
+					    <option value="0">None = 0</option>
+					    <option value="1">Light = 1</option>
+                        <option value="2">Medium = 2 </option>
+                        <option value="3">Heavy = 3</option>
+				    </select>
+				</div>
+                <div class="sheet-col-1-4">Armor</div>
+                <div class="sheet-col-1-4">
+                    <select name="attr_fatigue_armor">
+					    <option value="0">None</option>
+					    <option value="0+0">Light</option>
+                        <option value="1">Medium </option>
+                        <option value="2">Heavy</option>
+				    </select>
+				</div>
+				<div class="sheet-col-1-4">Wounded</div>
+                <div class="sheet-col-1-4">
+                    <select name="attr_fatigue_wounds">
+					    <option value="0"> 100%= 0</option>
+					    <option value="1"> 51-99% = +1</option>
+                        <option value="4"> 11-50%= +4 </option>
+                        <option value="8"> 1-10%= +8</option>
+				    </select>
+				</div>
+                <div class="sheet-col-1-4">Weight</div>
+                <div class="sheet-col-1-4">
+                    <select name="attr_fatigue_weight">
+					    <option value="0">Healthy</option>
+                        <option value="1">Overweight</option>
+                        <option value="3">Obese</option>
+				    </select>
+                </div>
+                <div class="sheet-col-1-2">Wound Thresholds</div>
+                <div class="sheet-col-1-4">Misc</div>
+                <div class="sheet-col-1-4"><input type="number" name="attr_fatigue_misc" value="0"/></div>
+				<div class="sheet-col-1-4"> 50% Threshold</div>
+				<div class="sheet-col-1-4"><input type="number" name="attr_50_thresh" value="0"  /></div>
+				<div class="sheet-col-1-2"></div>
+				<div class="sheet-col-1-4"> 10% Threshold</div>
+				<div class="sheet-col-1-4"><input type="number" name="attr_10_thresh" value="0"  /></div>
+            </div>
+            <hr/>
+                </div>
+                <div class='sheet-character'>
+                    <h3>Character Traits</h3>
+            
+            <h4>Proficiencies</h4>
+            <div><textarea name="attr_proficiencies"></textarea></div>
+            <hr/>
+         
+            <h4>Talents & Racial Abilities</h4>
+            <div><textarea name="attr_talents"></textarea></div>
+            <hr/>
+            
+
             
             <h4>Quirks & Flaws</h4>
             <div><textarea name="attr_quirks"></textarea></div>
             <hr/>
-            
-            <h3>Spells</h3>
+                </div>
+                <div class='sheet-spellstab'>
+                    <h3>Spells</h3>
             <div class="sheet-row sheet-stat-row">
                 <div class="sheet-col-1-4"></div>
                 <div class="sheet-col-1-8">SP</div>
@@ -1265,7 +1274,14 @@ on("change:skill_dice_switch sheet:opened", function() {
                     <div class="sheet-col-3-4"><textarea name="attr_spell_notes"></textarea></div>
                     </div>
                 </fieldset>
-            </div>
+            </div> 
+                </div>
+                
+           
+            
+            
+            
+            
             
         </div>
         
@@ -1903,4 +1919,3 @@ on("change:skill_dice_switch sheet:opened", function() {
     </table>
 
 </rolltemplate>
-
