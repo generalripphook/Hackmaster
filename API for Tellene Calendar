@@ -79,7 +79,9 @@ var Calendar = Calendar || (function() {
         var nowdate = getdate(state.Calendar.now.ordinal).split(',');
         var month = nowdate[0];
         var day = nowdate[1];
-        var moonV = getmoonV();
+        var moonD = getMoonPhase(80, 73);
+        var moonP = getMoonPhase(34, 30);
+        var moonV = getMoonPhase(28, 1);
         
         sendChat('Calendar', '/w gm <div ' + divstyle + '>' + //--
             '<div ' + headstyle + '>Calendar</div>' + //--
@@ -92,6 +94,8 @@ var Calendar = Calendar || (function() {
             '<tr><td>Ordinal: </td><td><a ' + astyle + '" href="!setordinal,?{Ordinal?|1}">' + state.Calendar.now.ordinal + '</a></td></tr>' + //--
             '</table>' + //--
             '<br>Weather: ' + state.Calendar.now.weather + //--
+            '<br><br>Diadolai: ' + moonD + //--
+            '<br><br>Pelselond: ' + moonP + //--
             '<br><br>Veshemo: ' + moonV + //--
             '<br><br><div style="text-align:center;"><a ' + astyle + '" href="!addday,?{Days to add?|1}">Advance the Date</a></div>' + //--
             '<div style="text-align:center;"><a ' + astyle + '" href="!weather">Roll Weather</a></div>' + //--
@@ -111,7 +115,9 @@ var Calendar = Calendar || (function() {
         var arrowstyle = 'style="border: none; border-top: 3px solid transparent; border-bottom: 3px solid transparent; border-left: 195px solid rgb(126, 45, 64); margin-bottom: 2px; margin-top: 2px;"';
         var headstyle = 'style="color: rgb(126, 45, 64); font-size: 18px; text-align: left; font-variant: small-caps; font-family: Times, serif;"';
         var substyle = 'style="font-size: 11px; line-height: 13px; margin-top: -3px; font-style: italic;"';
-        var moonV = getmoonV();
+        var moonD = getMoonPhase(80, 73);
+        var moonP = getMoonPhase(34, 30);
+        var moonV = getMoonPhase(28, 1);
         
         sendChat(msg.who, '<div ' + divstyle + '>' + //--
             '<div ' + headstyle + '>Calendar</div>' + //--
@@ -119,6 +125,8 @@ var Calendar = Calendar || (function() {
             '<div ' + arrowstyle + '></div>' + //--
             day + suffix + ' ' + month + ', ' + state.Calendar.now.year + //--
             '<br><br>Today\'s weather:<br>' + state.Calendar.now.weather + //--
+            '<br><br>Diadolai: ' + moonD + //--
+            '<br><br>Pelselond: ' + moonP + //--
             '<br><br>Veshemo: ' + moonV
         );
     },
@@ -359,41 +367,28 @@ var Calendar = Calendar || (function() {
         state.Calendar.now.weather = forecast;
     },
     
-    getmoonV = function() {
-        var ordinal = state.Calendar.now.ordinal;
-        var moonVNo;
-        var moonV;
-        
-        moonVNo = Math.ceil(ordinal/3)-Math.floor(Math.ceil(ordinal/3)/8)*8;
-        
-        switch(moonVNo) {
-            case 1:
-                moonV = 'First Quarter';
-                break;
-            case 2:
-                moonV = 'Waxing Cresent';
-                break;
-            case 3:
-                moonV = 'New';
-                break;
-            case 4:
-                moonV = 'Waning Cresent';
-                break;
-            case 5:
-                moonV = 'Third Quarter';
-                break;
-            case 6:
-                moonV = 'Waning Gibbous';
-                break;
-            case 7:
-                moonV = 'Full';
-                break;
-            case 0:
-                moonV = 'Waxing Gibbous';
-                break;
+    /**
+     * Returns the current phase of the moon as a String
+     * @param cycle Integer, number of days in the requested moon's cycle
+     * @param start Integer, the moon's initial position in the cycle on the first day of history (a value between 1 and cycle, inclusive)
+     */
+    getMoonPhase = function(cycle, start) {
+        // Number of days since the beginning of time (Tellene has a 364-day year)
+        let days = state.Calendar.now.ordinal + (364 * (state.Calendar.now.year - 1));
+        // Current day of cycle (1 <= n <= cycle)
+        let n = 1 + ((start + days) % cycle);
+        // Current phase of moon is a value between 0 and 8, where 0 and 8 are the same phase (i.e.
+        let phase = Math.floor(n * 8 / cycle);
+        switch (phase) {
+            case 1: return 'Waxing Cresent';
+            case 2: return 'First Quarter';
+            case 3: return 'Waxing Gibbous';
+            case 4: return 'Full';
+            case 5: return 'Waning Gibbous';
+            case 6: return 'Third Quarter';
+            case 7: return 'Waning Cresent';
         }
-        
-        return moonV;
+        return 'New'; // case 0 and 8
     },
     
     checkInstall = function() {
