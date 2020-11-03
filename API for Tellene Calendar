@@ -81,7 +81,7 @@ var Calendar = Calendar || (function() {
         var day = nowdate[1];
         var moonD = getMoonPhase(80, 73);
         var moonP = getMoonPhase(34, 30);
-        var moonV = getMoonPhase(28, 28);
+        var moonV = getMoonPhase(28, 1);
         
         sendChat('Calendar', '/w gm <div ' + divstyle + '>' + //--
             '<div ' + headstyle + '>Calendar</div>' + //--
@@ -117,7 +117,7 @@ var Calendar = Calendar || (function() {
         var substyle = 'style="font-size: 11px; line-height: 13px; margin-top: -3px; font-style: italic;"';
         var moonD = getMoonPhase(80, 73);
         var moonP = getMoonPhase(34, 30);
-        var moonV = getMoonPhase(28, 28);
+        var moonV = getMoonPhase(28, 1);
         
         sendChat(msg.who, '<div ' + divstyle + '>' + //--
             '<div ' + headstyle + '>Calendar</div>' + //--
@@ -373,8 +373,8 @@ var Calendar = Calendar || (function() {
      * @param start Integer, the moon's initial position in the cycle on the first day of history (a value between 1 and cycle, inclusive)
      */
     getMoonPhase = function(cycle, start) {
-        // Number of days since the beginning of time (Tellene has a 364-day year)
-        let days = state.Calendar.now.ordinal + (364 * (state.Calendar.now.year - 1));
+        // Number of days since the beginning of time (Tellene has a 364-day year); Year 1 and Day 1 both count as 0
+        let days = state.Calendar.now.ordinal - 1 + (364 * (state.Calendar.now.year - 1));
         // Current day of cycle (1 <= n <= cycle)
         let n = 1 + ((start + days) % cycle);
         // Fudge factor to push nearly completed phases into next phase
