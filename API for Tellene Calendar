@@ -377,8 +377,10 @@ var Calendar = Calendar || (function() {
         let days = state.Calendar.now.ordinal + (364 * (state.Calendar.now.year - 1));
         // Current day of cycle (1 <= n <= cycle)
         let n = 1 + ((start + days) % cycle);
+        // Fudge factor to push nearly completed phases into next phase
+        let f = 0.25;
         // Current phase of moon is a value between 0 and 8, where 0 and 8 are the same phase
-        let phase = Math.floor(n * 8 / cycle);
+        let phase = Math.floor(f + (n * 8 / cycle));
         switch (phase) {
             case 1: return 'Waxing Cresent';
             case 2: return 'First Quarter';
