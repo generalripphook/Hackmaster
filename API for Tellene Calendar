@@ -81,7 +81,7 @@ var Calendar = Calendar || (function() {
         var day = nowdate[1];
         var moonD = getMoonPhase(80, 73);
         var moonP = getMoonPhase(34, 30);
-        var moonV = getMoonPhase(28, 1);
+        var moonV = getMoonPhase(28, 1, 0.25);
         
         sendChat('Calendar', '/w gm <div ' + divstyle + '>' + //--
             '<div ' + headstyle + '>Calendar</div>' + //--
@@ -117,7 +117,7 @@ var Calendar = Calendar || (function() {
         var substyle = 'style="font-size: 11px; line-height: 13px; margin-top: -3px; font-style: italic;"';
         var moonD = getMoonPhase(80, 73);
         var moonP = getMoonPhase(34, 30);
-        var moonV = getMoonPhase(28, 1);
+        var moonV = getMoonPhase(28, 1, 0.25);
         
         sendChat(msg.who, '<div ' + divstyle + '>' + //--
             '<div ' + headstyle + '>Calendar</div>' + //--
@@ -371,16 +371,16 @@ var Calendar = Calendar || (function() {
      * Returns the current phase of the moon as a String
      * @param cycle Integer, number of days in the requested moon's cycle
      * @param start Integer, the moon's initial position in the cycle on the first day of history (a value between 1 and cycle, inclusive)
+     * @param fudge Float, "fudge factor" to push nearly completed phases into next phase (default = 0.0)
      */
-    getMoonPhase = function(cycle, start) {
+    getMoonPhase = function(cycle, start, fudge) {
+        if (typeof fudge === undefined) { fudge = 0.0; }
         // Number of days since the beginning of time (Tellene has a 364-day year); Year 1 and Day 1 both count as 0
         let days = state.Calendar.now.ordinal - 1 + (364 * (state.Calendar.now.year - 1));
         // Current day of cycle (1 <= n <= cycle)
         let n = 1 + ((start + days) % cycle);
-        // Fudge factor to push nearly completed phases into next phase
-        let f = 0.25;
         // Current phase of moon is a value between 0 and 8, where 0 and 8 are the same phase
-        let phase = Math.floor(f + (n * 8 / cycle));
+        let phase = Math.floor(fudge + (n * 8 / cycle));
         switch (phase) {
             case 1: return 'Waxing Cresent';
             case 2: return 'First Quarter';
