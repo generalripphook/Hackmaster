@@ -374,9 +374,9 @@ var Calendar = Calendar || (function() {
      */
     getMoonPhase = function(cycle, start) {
         // Number of days since the beginning of time (Tellene has a 364-day year)
-        let days = state.Calendar.now.ordinal + (364 * state.Calendar.now.year);
-        // Current day of cycle
-        let n = start + (days % cycle);
+        let days = state.Calendar.now.ordinal + (364 * (state.Calendar.now.year - 1));
+        // Current day of cycle (1 <= n <= cycle)
+        let n = 1 + ((start + days) % cycle);
         // Current phase of moon is a value between 0 and 8, where 0 and 8 are the same phase (i.e.
         let phase = Math.floor(n * 8 / cycle);
         switch (phase) {
