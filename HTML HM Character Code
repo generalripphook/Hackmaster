@@ -805,6 +805,7 @@ on("change:skill_dice_switch sheet:opened", function() {
             <input type="hidden" name="attr_dice_size_mod" value="0" />
             <div class="sheet-col-2-16">               
                 <select name="attr_start_working1">
+                    <option value="0">pick def dice</option>
                     <option value="2">d8</option>
                     <option value="4">d10</option>
                     <option value="6">d12</option>
