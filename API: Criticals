@@ -2865,7 +2865,7 @@ else
 
 {//26-30 result
 
-sendChat("Result", "2 extra damage dice; count reset; held items dropped; -2 Atk (if primary side).}}")}
+sendChat("", "&{template:hm_std}{{name=Result}}{{Damage=2 extra damage dice}}{{Other= count reset; held items dropped; -2 Atk (if primary side).}}")}
 
 else
 
