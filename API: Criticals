@@ -3339,7 +3339,7 @@ else
 
 {//Shoulder, side result
 
-sendChat('', "&{template:hm_std} {{name=Critical}} {{Severity= " + severity + "(" + wpntype + ")}}{{Crit Location =" + critroll + " - side of the shoulder.}}")
+sendChat('', "&{template:hm_std}{{name=Critical}}{{Severity= " + severity + "(" + wpntype + ")}}{{Crit Location =" + critroll + " - side of the shoulder.}}")
 
 if (severity < 11)
 
@@ -3419,7 +3419,7 @@ else
 
 {//Shoulder, top result
 
-sendChat('', "&{template:hm_std} {{name=Critical}} {{Severity= " + severity + "(" + wpntype + ")}}{{Crit Location =" + critroll + " - Top of the shoulder.}}")
+sendChat('', "&{template:hm_std}{{name=Critical}}{{Severity= " + severity + "(" + wpntype + ")}}{{Crit Location =" + critroll + " - Top of the shoulder.}}")
 
 if (severity < 11)
 
@@ -3457,7 +3457,7 @@ else
 
 {//26-30 result
 
-sendChat("Result", "2 extra damage dice; count reset; held items dropped; -3 Atk & +1 Speed (if primary side) or -3 Def (if secondary); -4 Str (all until healed); permanent -1 Str.}}")}
+sendChat("", "&{template:hm_std}{{name=Result}}{{Damage=2extra damage dice}}{{Other= count reset; held items dropped; -3 Atk & +1 Speed (if primary side) or -3 Def (if secondary); -4 Str (all until healed); permanent -1 Str.}}")}
 
 else
 
